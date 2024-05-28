@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://jesus-castro89.github.io/ims_doc'
 languageCode = 'es-mx'
 title = 'CMS :: Implantación de Sistemas de Gestión de Contenidos'
 
@@ -26,3 +26,9 @@ themeColor = "blue"
 sidebarIcons = true
 titleIcon = true
 prism = true
+
+[[menu.primary]]
+name  = "Docs"
+url = "/docs/"
+identifier = "docs"
+weight = 10
