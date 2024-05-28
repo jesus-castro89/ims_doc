@@ -1,0 +1,65 @@
+[hero]
+enable = true
+weight = 10
+template = "hero"
+title = "CMS - Documentación"
+subtitle = "Documentación de Configuración y Construcción de nuestro CMS"
+info = "**Open Source** MIT Licensed."
+
+[hero.backgroundImage]
+path = "images/templates/hero"
+
+[hero.backgroundImage.filename]
+desktop = "gradient-desktop.webp"
+mobile = "gradient-mobile.webp"
+
+[hero.image]
+path = "images"
+filename = "lotus_docs_screenshot.png"
+alt = "Lotus Docs Screenshot"
+boxShadow = true
+rounded = true
+
+[hero.ctaButton]
+icon = "rocket_launch"
+btnText = "Comencemos"
+url = "/docs/start"
+
+[features]
+enable = true
+weight = 20
+template = "features"
+title = "Características"
+subtitle = "Características de nuestro CMS"
+
+[features.items.item1]
+icon = "code"
+title = "Fácil de Usar"
+description = "Construye tu sitio web sin necesidad de conocimientos técnicos."
+
+[features.items.item2]
+icon = "fullscreen"
+title = "Diseño Responsivo"
+description = "Tu sitio web se verá bien en cualquier dispositivo."
+
+[features.items.item3]
+icon = "lock"
+title = "Seguridad"
+description = "Tu sitio web estará protegido contra ataques."
+
+[features.items.item4]
+icon = "bolt"
+title = "Rápido"
+description = "Tu sitio web cargará rápidamente."
+
+[features.items.item5]
+icon = "settings"
+title = "Personalizable"
+description = "Personaliza tu sitio web a tu gusto."
+
+[features.items.item6]
+icon = "public"
+title = "Internacionalización"
+description = "Tu sitio web estará disponible en varios idiomas."
+
+[image_compare]
