@@ -122,7 +122,7 @@ Crea un archivo `config/middlewares.php` y pega el siguiente contenido:
 
 {{< /prism >}}
 
-## Crear un archivo de entrada
+## Crear un archivo de entrada 
 
 Crea un archivo `public/index.php` y pega el siguiente contenido:
 
