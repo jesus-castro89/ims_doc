@@ -15,7 +15,7 @@ google_fonts = [["Saira", "400", "700", "900"], ["Rosario", "400", "700"], ["Fir
 sans_serif_font = "Rosario"
 secondary_font = "Saira"
 mono_fonr = "Fira Code"
-css = ["./css/custom.css"]
+css = ["/ims_doc/css/custom.css"]
 
 [params.footer]
 copyright = "M. en E. Jesús Aurelio Castro Magaña"
