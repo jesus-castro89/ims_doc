@@ -55,8 +55,8 @@ jobs:
           HUGO_ENV: production
         run: |
           hugo \
-            --ignoreCache \
             --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
             --baseURL "https://jesus-castro89.github.io/ims_doc/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -74,3 +74,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
