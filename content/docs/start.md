@@ -19,6 +19,7 @@ Para crear el nuevo sitio, crea un archivo `composer.json` y pega el siguiente c
             "laminas/laminas-di": "^3.14",
             "laminas/laminas-diactoros": "^3.3",
             "laminas/laminas-servicemanager": "^4.1",
+            "php-di/php-di": "^7.0",
             "slim/slim": "^4.13",
             "zeuxisoo/slim-whoops": "^0.7.3"
         },
@@ -59,7 +60,6 @@ La estructura de carpetas de tu proyecto debería verse así:
 │  ├─ container.php
 │  ├─ middleware.php
 │  ├─ routes.php
-│  └─ services.php
 ├─ public
 │  ├─ index.php
 │  └─ .htaccess
@@ -79,19 +79,19 @@ Crea un archivo `config/app.php` y pega el siguiente contenido:
 
     <?php
     
-    use Laminas\ServiceManager\ServiceManager;
-    use Psr\Container\ContainerExceptionInterface;
-    use Psr\Container\NotFoundExceptionInterface;
+    use DI\ContainerBuilder;
+    use Slim\App;
     
     require_once __DIR__ . '/../vendor/autoload.php';
-    $container = new ServiceManager(require_once __DIR__ . '/container.php');
+    $containerBuilder = new ContainerBuilder();
+    // Add DI container definitions
+    $containerBuilder->addDefinitions(__DIR__ . '/container.php');
+    // Create DI container instance
     try {
-        $app = $container->get('app');
+        $container = $containerBuilder->build();
+        $app = $container->get(App::class);
         $app->run();
-    } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
-        http_response_code(500);
-        echo 'Internal Server Error';
-        exit;
+    } catch (Exception $e) {
     }
 
 {{< /prism >}}
@@ -104,20 +104,20 @@ Crea un archivo `config/container.php` y pega el siguiente contenido:
 
     <?php
     
+    use Cms\Controller\HomeController;
+    use Psr\Container\ContainerInterface;
+    use Slim\App;
     use Slim\Factory\AppFactory;
     
     return [
-        'factories' => [
-            'app' => function () {
+        //APP
+        App::class => function (ContainerInterface $container) {
     
-                return AppFactory::create();
-            },
-        ],
-        'services' => require_once __DIR__ . '/services.php',
-        'initializers' => [
-            require_once __DIR__ . '/middleware.php',
-            require_once __DIR__ . '/routes.php',
-        ],
+            $app = AppFactory::createFromContainer($container);
+            (require_once __DIR__ . '/routes.php')($app);
+            (require_once __DIR__ . '/middleware.php')($app);
+            return $app;
+        }
     ];
 
 {{< /prism >}}
@@ -148,37 +148,23 @@ Crea un archivo `config/middleware.php` y pega el siguiente contenido:
 
     <?php
     
-    use Laminas\ServiceManager\ServiceManager;
     use Slim\App;
-    use Zeuxisoo\Whoops\Slim\WhoopsMiddleware;
     
-    return function (ServiceManager $container, App $app) {
+    return function (App $app) {
     
-        $config = $container->get('config');
-        $app->setBasePath($config['base_path']);
+        // Parse json, form data and xml
         $app->addBodyParsingMiddleware();
+        // Add the Slim built-in routing middleware
         $app->addRoutingMiddleware();
-        $app->add(new WhoopsMiddleware($config['whoops']));
+        //Whops!
+        $app->add(new Zeuxisoo\Whoops\Slim\WhoopsMiddleware([
+            'enable' => true,
+            'editor' => 'sublime',
+            'title' => 'Parece que hay un error',
+        ]));
+        //Add Base Path
+        $app->setBasePath('/cms_ims');
     };
-
-{{< /prism >}}
-
-## Crear un archivo de servicios
-
-Crea un archivo `config/services.php` y pega el siguiente contenido:
-
-{{< prism lang="php" line-numbers="true" >}}
-
-    <?php
-    
-    return [
-        'config' => [
-            'base_path' => '/[cms_ims]',
-            'whoops' => [
-                'editor' => 'sublime',
-            ],
-        ],
-    ];
 
 {{< /prism >}}
 
