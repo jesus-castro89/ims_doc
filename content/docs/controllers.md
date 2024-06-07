@@ -2,8 +2,8 @@
 weight = 200
 date = "2023-05-03T22:37:22+01:00"
 draft = false
-title = "Los controladores
-icon = "windows"
+title = "Los controladores"
+icon = "code"
 toc = true
 publishdate = "2023-05-03T22:37:22+01:00"
 +++
