@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+<script src="/ims_doc/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=ims_doc/livereload" data-no-instant defer></script><link rel="stylesheet" href="/ims_doc/css/custom.css"><html lang="es-mx"><head>
+    <meta charset="utf-8" />
+    <title>ORM | CMS :: Implantación de Sistemas de Gestión de Contenidos</title>
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Documentation, Hugo, Hugo Theme, Bootstrap" />
+    <meta name="author" content="Colin Wilson - Lotus Labs" />
+    <meta name="email" content="support@aigis.uk" />
+    <meta name="website" content="https://lotusdocs.dev" />
+    <meta name="Version" content="v0.1.0" />
+    
+    <link rel="icon" href="http://localhost:1313/ims_doc/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/ims_doc/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/ims_doc/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/ims_doc/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/ims_doc/favicon-16x16.png">
+<link rel="manifest" crossorigin="use-credentials" href="http://localhost:1313/ims_doc/site.webmanifest">
+<meta property="og:title" content="ORM" />
+<meta property="og:description" content="ORM linkUn ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un ORM de alto rendimiento para PHP.
+Instalar PropelORM linkPara instalar PropelORM, ejecuta el siguiente comando en la terminal:
+composer require propel/propel Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.
+Configurar PropelORM linkPara configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/ims_doc/docs/crud/orm/" /><meta property="og:image" content="http://localhost:1313/ims_doc/opengraph/card-base-2_hu06b1a92291a380a0d2e0ec03dab66b2f_17642_filter_2919761583671276457.png"/><meta property="article:section" content="docs" />
+<meta property="article:published_time" content="2024-06-24T21:05:47-06:00" />
+<meta property="article:modified_time" content="2024-06-24T21:05:47-06:00" /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:1313/ims_doc/opengraph/card-base-2_hu06b1a92291a380a0d2e0ec03dab66b2f_17642_filter_2919761583671276457.png"/>
+<meta name="twitter:title" content="ORM"/>
+<meta name="twitter:description" content="ORM linkUn ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un ORM de alto rendimiento para PHP.
+Instalar PropelORM linkPara instalar PropelORM, ejecuta el siguiente comando en la terminal:
+composer require propel/propel Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.
+Configurar PropelORM linkPara configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:"/>
+
+    
+    <script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script>
+    
+    
+            
+                <script type="text/javascript" src="http://localhost:1313/ims_doc/docs/js/flexsearch.bundle.js"></script>
+            
+        
+    
+    
+    
+    
+        
+        
+        
+        
+    
+        
+        
+        
+        
+    
+        
+        
+        
+        
+    
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css?family=Saira:400|Rosario:400|Fira+Code:500,700&display=block" rel="stylesheet">
+
+    <link rel="stylesheet" href="/ims_doc/docs/scss/style.css" crossorigin="anonymous">
+    
+    
+    </head><body>
+<div class="content">
+    <div class="page-wrapper toggled">
+<nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-brand">
+        <a href='/ims_doc/' aria-label="HomePage" alt="HomePage">
+            
+                <?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143,39.5c-18,0-18,18-18,18,0,0,0-18-18-18H22c-2.76,0-5,2.24-5,5v143c0,2.76,2.24,5,5,5h76c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h76c2.76,0,5-2.24,5-5V44.5c0-2.76-2.24-5-5-5h-85Zm63,123.5c0,1.38-1.12,2.5-2.5,2.5h-60.5c-18,0-18,18-18,18,0,0,0-18-18-18h-60.5c-1.38,0-2.5-1.12-2.5-2.5v-94c0-1.38,1.12-2.5,2.5-2.5h51.5c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h51.5c1.38,0,2.5,1.12,2.5,2.5v94Z" style="fill:#06f;"/></svg>
+            
+        </a>
+    </div>
+    <div class="sidebar-content" style="height: calc(100% - 131px);">
+        <ul class="sidebar-menu">
+            
+                
+                
+                    
+                        
+                        <li class="">
+                            <a class="sidebar-root-link" href="http://localhost:1313/ims_doc/docs/start/">
+                                <i class="material-icons me-2">rocket_launch</i>
+                                
+                                Inicio rápido
+                            </a>
+                        </li>
+                    
+                
+                    
+                        
+                        <li class="">
+                            <a class="sidebar-root-link" href="http://localhost:1313/ims_doc/docs/controllers/">
+                                <i class="material-icons me-2">code</i>
+                                
+                                Los controladores
+                            </a>
+                        </li>
+                    
+                
+                    
+                        
+                        <li class="">
+                            <a class="sidebar-root-link" href="http://localhost:1313/ims_doc/docs/view/">
+                                <i class="material-icons me-2">window</i>
+                                
+                                Las vistas
+                            </a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="sidebar-dropdown  current active">
+                            <button class="btn">
+                                <i class="material-icons me-2">article</i>
+                                Crud
+                            </button>
+                            <div class="sidebar-submenu d-block">
+                                <ul>
+                                    
+                                        
+                                        
+                                            <li class=" "><a class="sidebar-nested-link" href="http://localhost:1313/ims_doc/docs/crud/introduction/">Introducción</a></li>
+                                        
+                                    
+                                        
+                                        
+                                            <li class="current "><a class="sidebar-nested-link" href="http://localhost:1313/ims_doc/docs/crud/orm/">ORM</a></li>
+                                        
+                                    
+                                        
+                                        
+                                            <li class=" "><a class="sidebar-nested-link" href="http://localhost:1313/ims_doc/docs/crud/views/">Vistas</a></li>
+                                        
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                    
+                
+            
+        </ul>
+        
+    </div>
+    
+        <ul class="sidebar-footer list-unstyled mb-0">
+            
+        </ul>
+    
+</nav>
+
+        <main class="page-content bg-transparent">
+            
+<div id="top-header" class="top-header d-print-none">
+    <div class="header-bar d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+            <a href='/ims_doc/' class="logo-icon me-3" aria-label="HomePage" alt="HomePage">
+                <div class="small">
+                    
+                            <?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143,39.5c-18,0-18,18-18,18,0,0,0-18-18-18H22c-2.76,0-5,2.24-5,5v143c0,2.76,2.24,5,5,5h76c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h76c2.76,0,5-2.24,5-5V44.5c0-2.76-2.24-5-5-5h-85Zm63,123.5c0,1.38-1.12,2.5-2.5,2.5h-60.5c-18,0-18,18-18,18,0,0,0-18-18-18h-60.5c-1.38,0-2.5-1.12-2.5-2.5v-94c0-1.38,1.12-2.5,2.5-2.5h51.5c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h51.5c1.38,0,2.5,1.12,2.5,2.5v94Z" style="fill:#06f;"/></svg>
+                    
+                </div>
+                <div class="big">
+                    
+                            <?xml version="1.0" encoding="UTF-8"?><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250"><path d="m143,39.5c-18,0-18,18-18,18,0,0,0-18-18-18H22c-2.76,0-5,2.24-5,5v143c0,2.76,2.24,5,5,5h76c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h76c2.76,0,5-2.24,5-5V44.5c0-2.76-2.24-5-5-5h-85Zm63,123.5c0,1.38-1.12,2.5-2.5,2.5h-60.5c-18,0-18,18-18,18,0,0,0-18-18-18h-60.5c-1.38,0-2.5-1.12-2.5-2.5v-94c0-1.38,1.12-2.5,2.5-2.5h51.5c7.2,0,8.64,11.52,8.93,16.13.07,1.05.95,1.87,2,1.87h32.14c1.06,0,1.94-.82,2-1.87.29-4.61,1.73-16.13,8.93-16.13h51.5c1.38,0,2.5,1.12,2.5,2.5v94Z" style="fill:#06f;"/></svg>
+                    
+                </div>
+            </a>
+            <button id="close-sidebar" class="btn btn-icon btn-soft">
+                <span class="material-icons size-20 menu-icon align-middle">menu</span>
+            </button>
+            
+            
+                    
+                    <button id="flexsearch-button" class="ms-3 btn btn-soft" data-bs-toggle="collapse" data-bs-target="#FlexSearchCollapse" aria-expanded="false" aria-controls="FlexSearchCollapse">
+                        <span class="material-icons size-20 menu-icon align-middle">search</span>
+                        <span class="flexsearch-button-placeholder ms-1 me-2 d-none d-sm-block">Search</span>
+                        <div class="d-none d-sm-block">
+                            <span class="flexsearch-button-keys">
+                                <kbd class="flexsearch-button-cmd-key">
+                                    <svg width="44" height="15"><path d="M2.118,11.5A1.519,1.519,0,0,1,1,11.042,1.583,1.583,0,0,1,1,8.815a1.519,1.519,0,0,1,1.113-.458h.715V6.643H2.118A1.519,1.519,0,0,1,1,6.185,1.519,1.519,0,0,1,.547,5.071,1.519,1.519,0,0,1,1,3.958,1.519,1.519,0,0,1,2.118,3.5a1.519,1.519,0,0,1,1.114.458A1.519,1.519,0,0,1,3.69,5.071v.715H5.4V5.071A1.564,1.564,0,0,1,6.976,3.5,1.564,1.564,0,0,1,8.547,5.071,1.564,1.564,0,0,1,6.976,6.643H6.261V8.357h.715a1.575,1.575,0,0,1,1.113,2.685,1.583,1.583,0,0,1-2.227,0A1.519,1.519,0,0,1,5.4,9.929V9.214H3.69v.715a1.519,1.519,0,0,1-.458,1.113A1.519,1.519,0,0,1,2.118,11.5Zm0-.857a.714.714,0,0,0,.715-.714V9.214H2.118a.715.715,0,1,0,0,1.429Zm4.858,0a.715.715,0,1,0,0-1.429H6.261v.715a.714.714,0,0,0,.715.714ZM3.69,8.357H5.4V6.643H3.69ZM2.118,5.786h.715V5.071a.714.714,0,0,0-.715-.714.715.715,0,0,0-.5,1.22A.686.686,0,0,0,2.118,5.786Zm4.143,0h.715a.715.715,0,0,0,.5-1.22.715.715,0,0,0-1.22.5Z" fill="currentColor"></path><path d="M12.4,11.475H11.344l3.879-7.95h1.056Z" fill="currentColor"></path><path d="M25.073,5.384l-.864.576a2.121,2.121,0,0,0-1.786-.923,2.207,2.207,0,0,0-2.266,2.326,2.206,2.206,0,0,0,2.266,2.325,2.1,2.1,0,0,0,1.782-.918l.84.617a3.108,3.108,0,0,1-2.622,1.293,3.217,3.217,0,0,1-3.349-3.317,3.217,3.217,0,0,1,3.349-3.317A3.046,3.046,0,0,1,25.073,5.384Z" fill="currentColor"></path><path d="M30.993,5.142h-2.07v5.419H27.891V5.142h-2.07V4.164h5.172Z" fill="currentColor"></path><path d="M34.67,4.164c1.471,0,2.266.658,2.266,1.851,0,1.087-.832,1.809-2.134,1.855l2.107,2.691h-1.28L33.591,7.87H33.07v2.691H32.038v-6.4Zm-1.6.969v1.8h1.572c.832,0,1.22-.3,1.22-.918s-.411-.882-1.22-.882Z" fill="currentColor"></path><path d="M42.883,10.561H38.31v-6.4h1.033V9.583h3.54Z" fill="currentColor"></path></svg>
+                                </kbd>
+                                <kbd class="flexsearch-button-key">
+                                    <svg width="15" height="15"><path d="M5.926,12.279H4.41L9.073,2.721H10.59Z" fill="currentColor"/></svg>
+                                </kbd>
+                            </span>
+                        </div>
+                    </button>
+                
+            </div>
+
+        <div class="d-flex align-items-center">
+            <ul class="list-unstyled mb-0">
+                
+            </ul>
+            <button id="mode" class="btn btn-icon btn-default ms-2" type="button" aria-label="Toggle user interface mode">
+                <span class="toggle-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 48 48" fill="currentColor"><path d="M24 42q-7.5 0-12.75-5.25T6 24q0-7.5 5.25-12.75T24 6q.4 0 .85.025.45.025 1.15.075-1.8 1.6-2.8 3.95-1 2.35-1 4.95 0 4.5 3.15 7.65Q28.5 25.8 33 25.8q2.6 0 4.95-.925T41.9 22.3q.05.6.075.975Q42 23.65 42 24q0 7.5-5.25 12.75T24 42Zm0-3q5.45 0 9.5-3.375t5.05-7.925q-1.25.55-2.675.825Q34.45 28.8 33 28.8q-5.75 0-9.775-4.025T19.2 15q0-1.2.25-2.575.25-1.375.9-3.125-4.9 1.35-8.125 5.475Q9 18.9 9 24q0 6.25 4.375 10.625T24 39Zm-.2-14.85Z"/></svg>
+                </span>
+                <span class="toggle-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 48 48" fill="currentColor"><path d="M24 31q2.9 0 4.95-2.05Q31 26.9 31 24q0-2.9-2.05-4.95Q26.9 17 24 17q-2.9 0-4.95 2.05Q17 21.1 17 24q0 2.9 2.05 4.95Q21.1 31 24 31Zm0 3q-4.15 0-7.075-2.925T14 24q0-4.15 2.925-7.075T24 14q4.15 0 7.075 2.925T34 24q0 4.15-2.925 7.075T24 34ZM3.5 25.5q-.65 0-1.075-.425Q2 24.65 2 24q0-.65.425-1.075Q2.85 22.5 3.5 22.5h5q.65 0 1.075.425Q10 23.35 10 24q0 .65-.425 1.075-.425.425-1.075.425Zm36 0q-.65 0-1.075-.425Q38 24.65 38 24q0-.65.425-1.075.425-.425 1.075-.425h5q.65 0 1.075.425Q46 23.35 46 24q0 .65-.425 1.075-.425.425-1.075.425ZM24 10q-.65 0-1.075-.425Q22.5 9.15 22.5 8.5v-5q0-.65.425-1.075Q23.35 2 24 2q.65 0 1.075.425.425.425.425 1.075v5q0 .65-.425 1.075Q24.65 10 24 10Zm0 36q-.65 0-1.075-.425-.425-.425-.425-1.075v-5q0-.65.425-1.075Q23.35 38 24 38q.65 0 1.075.425.425.425.425 1.075v5q0 .65-.425 1.075Q24.65 46 24 46ZM12 14.1l-2.85-2.8q-.45-.45-.425-1.075.025-.625.425-1.075.45-.45 1.075-.45t1.075.45L14.1 12q.4.45.4 1.05 0 .6-.4 1-.4.45-1.025.45-.625 0-1.075-.4Zm24.7 24.75L33.9 36q-.4-.45-.4-1.075t.45-1.025q.4-.45 1-.45t1.05.45l2.85 2.8q.45.45.425 1.075-.025.625-.425 1.075-.45.45-1.075.45t-1.075-.45ZM33.9 14.1q-.45-.45-.45-1.05 0-.6.45-1.05l2.8-2.85q.45-.45 1.075-.425.625.025 1.075.425.45.45.45 1.075t-.45 1.075L36 14.1q-.4.4-1.025.4-.625 0-1.075-.4ZM9.15 38.85q-.45-.45-.45-1.075t.45-1.075L12 33.9q.45-.45 1.05-.45.6 0 1.05.45.45.45.45 1.05 0 .6-.45 1.05l-2.8 2.85q-.45.45-1.075.425-.625-.025-1.075-.425ZM24 24Z"/></svg>
+                </span>
+            </button>
+            
+        </div>
+    </div>
+    
+    
+            <div class="collapse" id="FlexSearchCollapse">
+                <div class="flexsearch-container">
+                    <div class="flexsearch-keymap">
+                        <li>
+                            <kbd class="flexsearch-button-cmd-key"><svg width="15" height="15" aria-label="Arrow down" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path></g></svg></kbd>
+                            <kbd class="flexsearch-button-cmd-key"><svg width="15" height="15" aria-label="Arrow up" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path></g></svg></kbd>
+                            <span class="flexsearch-key-label">to navigate</span>
+                        </li>
+                        <li>
+                            <kbd class="flexsearch-button-cmd-key"><svg width="15" height="15" aria-label="Enter key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"></path></g></svg></kbd>
+                            <span class="flexsearch-key-label">to select</span>
+                        </li>
+                        <li>
+                            <kbd class="flexsearch-button-cmd-key"><svg width="15" height="15" aria-label="Escape key" role="img"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"><path d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"></path></g></svg></kbd>
+                            <span class="flexsearch-key-label">to close</span>
+                        </li>
+                    </div>
+                    <form class="flexsearch position-relative flex-grow-1 ms-2 me-2">
+                        <div class="d-flex flex-row">
+                            <input id="flexsearch" class="form-control" type="search" placeholder="Search" aria-label="Search" autocomplete="off">
+                            <button id="hideFlexsearch" type="button" class="ms-2 btn btn-soft">
+                                cancel
+                            </button>
+                        </div>
+                        <div id="suggestions" class="shadow rounded-1 d-none"></div>
+                    </form>
+                </div>
+            </div>
+        
+    
+    
+</div>
+
+            <div class="container-fluid">
+                <div class="layout-spacing">
+                    
+                        <div class="d-md-flex justify-content-between align-items-center"><nav aria-label="breadcrumb" class="d-inline-block pb-2 mt-1 mt-sm-0">
+    <ul id="breadcrumbs" class="breadcrumb bg-transparent mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
+        
+            
+                <li class="breadcrumb-item text-capitalize active" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="/ims_doc/docs/">
+                        <i class="material-icons size-20 align-text-bottom" itemprop="name">Home</i>
+                    </a>
+                    <meta itemprop="position" content='1' />
+                </li>
+            
+            
+                <li class="breadcrumb-item text-capitalize" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a itemprop="item" href="/ims_doc/docs/crud/">
+                        <span itemprop="name">Crud</span>
+                    </a>
+                    <meta itemprop="position" content='2' />
+                </li>
+            
+        
+            <li class="breadcrumb-item text-capitalize active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name">ORM</span>
+                <meta itemprop="position" content='3' />
+            </li>
+        
+    </ul>
+</nav></div>
+                    
+                    <div class="row flex-xl-nowrap">
+                        
+                            <div class="docs-toc col-xl-3    d-xl-block"><toc>
+    <div class="fw-bold text-uppercase mb-2">On this page</div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#orm">ORM</a></li>
+    <li><a href="#instalar-propelorm">Instalar PropelORM</a></li>
+    <li><a href="#configurar-propelorm">Configurar PropelORM</a></li>
+    <li><a href="#actualizar-el-archivo-composerjson">Actualizar el archivo <code>composer.json</code></a></li>
+    <li><a href="#instalar-dependencias">Instalar dependencias</a></li>
+    <li><a href="#actualizar-el-archivo-configcontainerphp">Actualizar el archivo <code>config/container.php</code></a></li>
+    <li><a href="#actualizar-el-archivo-configappphp">Actualizar el archivo <code>config/app.php</code></a></li>
+    <li><a href="#crear-los-modelos">Crear los Modelos</a></li>
+    <li><a href="#modificar-el-archivo-category">Modificar el archivo <code>Category</code></a></li>
+    <li><a href="#crear-los-formularios">Crear los Formularios</a></li>
+    <li><a href="#actualizar-la-clase-abstractcontroller">Actualizar la clase <code>AbstractController</code></a></li>
+    <li><a href="#crear-los-controladores">Crear los Controladores</a></li>
+    <li><a href="#actualizar-el-archivo-configroutesphp">Actualizar el archivo <code>config/routes.php</code></a></li>
+    <li><a href="#las-vistas">Las Vistas</a></li>
+  </ul>
+</nav>
+    </toc></div>
+                        
+                        
+                            <div class="docs-toc-mobile    d-print-none d-xl-none">
+                                <button id="toc-dropdown-btn" class="btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-offset="0,0" aria-expanded="false">
+                                    Table of Contents
+                                </button>
+<nav id="toc-mobile">
+  <ul class="dropdown-menu">
+    <li><a href="#orm">ORM</a></li>
+    <li><a href="#instalar-propelorm">Instalar PropelORM</a></li>
+    <li><a href="#configurar-propelorm">Configurar PropelORM</a></li>
+    <li><a href="#actualizar-el-archivo-composerjson">Actualizar el archivo <code>composer.json</code></a></li>
+    <li><a href="#instalar-dependencias">Instalar dependencias</a></li>
+    <li><a href="#actualizar-el-archivo-configcontainerphp">Actualizar el archivo <code>config/container.php</code></a></li>
+    <li><a href="#actualizar-el-archivo-configappphp">Actualizar el archivo <code>config/app.php</code></a></li>
+    <li><a href="#crear-los-modelos">Crear los Modelos</a></li>
+    <li><a href="#modificar-el-archivo-category">Modificar el archivo <code>Category</code></a></li>
+    <li><a href="#crear-los-formularios">Crear los Formularios</a></li>
+    <li><a href="#actualizar-la-clase-abstractcontroller">Actualizar la clase <code>AbstractController</code></a></li>
+    <li><a href="#crear-los-controladores">Crear los Controladores</a></li>
+    <li><a href="#actualizar-el-archivo-configroutesphp">Actualizar el archivo <code>config/routes.php</code></a></li>
+    <li><a href="#las-vistas">Las Vistas</a></li>
+  </ul>
+</nav></div>
+                        <div class="docs-content col-12 col-xl-9 mt-0">
+                            <div class="mb-0 d-flex">
+                                
+                                    <i class="material-icons title-icon me-2">article</i>
+                                
+                                <h1 class="content-title mb-0">
+                                    ORM
+                                    
+                                </h1>
+                            </div>
+                            
+                            <div id="content" class="main-content" >
+                                
+    
+    <div data-prismjs-copy="" data-prismjs-copy-success="" data-prismjs-copy-error="">
+        <h2 id="orm">ORM <a href="#orm" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Un ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas
+incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un
+ORM de alto rendimiento para PHP.</p>
+<h2 id="instalar-propelorm">Instalar PropelORM <a href="#instalar-propelorm" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para instalar PropelORM, ejecuta el siguiente comando en la terminal:</p>
+
+
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  <div class="prism-codeblock ">
+  <pre id="dfcc0d3" class="language-bash ">
+  <code>composer require propel/propel</code>
+  </pre>
+  </div>
+<p>Una vez que Composer haya terminado, se creará el directorio <code>vendor</code> en tu proyecto.</p>
+<h2 id="configurar-propelorm">Configurar PropelORM <a href="#configurar-propelorm" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:</p>
+
+
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  <div class="prism-codeblock ">
+  <pre id="ede51ff" class="language-bash ">
+  <code>php vendor/bin/propel init</code>
+  </pre>
+  </div>
+<p>Aparecerá un mensaje que te pedirá que elijas el gestor de bases de datos que deseas usar. En este caso, selecciona
+MySQL.</p>
+<p>Después de seleccionar MySQL, PropelORM nos solicitará la información de la conexión a la base de datos. Proporciona la
+información requerida y PropelORM detectará automáticamente la base de datos y creará un archivo de configuración.</p>
+<p>Seguidamente, el sistema te solicitará el directorio en donde deseas guardar los archivos generados. En este caso, elige
+<code>src</code>. Así mismo te solicitará el nombre del espacio de nombres. En este caso, elige <code>Cms</code>. Finalmente, te solicitará el
+tipo de archivo de configuración. En este caso, elige <code>xml</code>.</p>
+<p>Una vez que hayas completado estos pasos, PropelORM generará los archivos necesarios en el directorio <code>src</code>.</p>
+<p>Recuerda mover los archivos generados de la carpeta <code>Cms</code> a <code>src</code>. Así como los archivos de configuración de la carpeta
+<code>generated_conf</code> a <code>config</code>.</p>
+<h2 id="actualizar-el-archivo-composerjson">Actualizar el archivo <code>composer.json</code> <a href="#actualizar-el-archivo-composerjson" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para que PropelORM funcione correctamente, necesitas actualizar el archivo <code>composer.json</code> con el siguiente contenido:</p>
+
+
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  <div class="prism-codeblock ">
+  <pre id="2260adc" class="language-json ">
+  <code>{
+  &#34;autoload&#34;: {
+	&#34;psr-4&#34;: {
+	  &#34;Cms\\&#34;: &#34;src/&#34;
+	}
+  },
+  &#34;require&#34;: {
+	&#34;laminas/laminas-di&#34;: &#34;^3.14&#34;,
+	&#34;laminas/laminas-diactoros&#34;: &#34;^3.3&#34;,
+	&#34;laminas/laminas-servicemanager&#34;: &#34;^4.1&#34;,
+	&#34;lcharette/webpack-encore-twig&#34;: &#34;^1.2&#34;,
+	&#34;php-di/php-di&#34;: &#34;^7.0&#34;,
+	&#34;propel/propel&#34;: &#34;~2.0@beta&#34;,
+	&#34;slim/slim&#34;: &#34;^4.13&#34;,
+	&#34;slim/twig-view&#34;: &#34;^3.4&#34;,
+	&#34;symfony/console&#34;: &#34;^7.1&#34;,
+	&#34;symfony/form&#34;: &#34;^7.1&#34;,
+	&#34;symfony/http-foundation&#34;: &#34;^7.1&#34;,
+	&#34;symfony/security-csrf&#34;: &#34;^7.1&#34;,
+	&#34;symfony/translation&#34;: &#34;^7.1&#34;,
+	&#34;symfony/twig-bridge&#34;: &#34;^7.1&#34;,
+	&#34;zeuxisoo/slim-whoops&#34;: &#34;^0.7.3&#34;
+  }
+}</code>
+  </pre>
+  </div>
+<p>Es importante para que este proceso y el siguiente funcionen correctamente, que tengas instalado Composer en tu sistema.</p>
+<p>Si no lo tienes, puedes descargarlo desde <a href="https://getcomposer.org/" rel="external" target="_blank">getcomposer.org<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M14 5c-.552 0-1-.448-1-1s.448-1 1-1h6c.552 0 1 .448 1 1v6c0 .552-.448 1-1 1s-1-.448-1-1v-3.586l-7.293 7.293c-.391.39-1.024.39-1.414 0-.391-.391-.391-1.024 0-1.414l7.293-7.293h-3.586zm-9 2c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h11c.552 0 1-.448 1-1v-4.563c0-.552.448-1 1-1s1 .448 1 1v4.563c0 1.657-1.343 3-3 3h-11c-1.657 0-3-1.343-3-3v-11c0-1.657 1.343-3 3-3h4.563c.552 0 1 .448 1 1s-.448 1-1 1h-4.563z"/></svg></a>. De lo contrario, no podrás
+continuar con el tutorial.</p>
+<p>Así mismo es necesario descargar Yarn, puedes descargarlo
+desde <a href="https://yarnpkg.com/getting-started/install" rel="external" target="_blank">yarnpkg.com<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M14 5c-.552 0-1-.448-1-1s.448-1 1-1h6c.552 0 1 .448 1 1v6c0 .552-.448 1-1 1s-1-.448-1-1v-3.586l-7.293 7.293c-.391.39-1.024.39-1.414 0-.391-.391-.391-1.024 0-1.414l7.293-7.293h-3.586zm-9 2c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h11c.552 0 1-.448 1-1v-4.563c0-.552.448-1 1-1s1 .448 1 1v4.563c0 1.657-1.343 3-3 3h-11c-1.657 0-3-1.343-3-3v-11c0-1.657 1.343-3 3-3h4.563c.552 0 1 .448 1 1s-.448 1-1 1h-4.563z"/></svg></a>.</p>
+<h2 id="instalar-dependencias">Instalar dependencias <a href="#instalar-dependencias" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para instalar las dependencias, ejecuta el siguiente comando en la terminal:</p>
+
+
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  <div class="prism-codeblock ">
+  <pre id="9b2df89" class="language-bash ">
+  <code>composer install</code>
+  </pre>
+  </div>
+<p>Una vez que Composer haya terminado, se creará el directorio <code>vendor</code> en tu proyecto.</p>
+<h2 id="actualizar-el-archivo-configcontainerphp">Actualizar el archivo <code>config/container.php</code> <a href="#actualizar-el-archivo-configcontainerphp" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para usar PropelORM en tu proyecto, necesitas actualizar el archivo <code>config/container.php</code> con el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="e4ef480" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    use Cms\Controller\CategoryController;
+    use Cms\Controller\HomeController;
+    use Cms\Extensions\RouterExtension;
+    use Lcharette\WebpackEncoreTwig\EntrypointsTwigExtension;
+    use Lcharette\WebpackEncoreTwig\TagRenderer;
+    use Psr\Container\ContainerInterface;
+    use Slim\App;
+    use Slim\Factory\AppFactory;
+    use Slim\Views\Twig;
+    use Symfony\Bridge\Twig\Extension\FormExtension;
+    use Symfony\Bridge\Twig\Extension\TranslationExtension;
+    use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+    use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+    use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
+    use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+    use Symfony\Component\Form\FormRenderer;
+    use Symfony\Component\Form\Forms;
+    use Symfony\Component\Security\Csrf\CsrfTokenManager;
+    use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
+    use Symfony\Component\Security\Csrf\TokenStorage\NativeSessionTokenStorage;
+    use Symfony\Component\Translation\Translator;
+    use Symfony\Component\Validator\Validation;
+    use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+    use Twig\RuntimeLoader\FactoryRuntimeLoader;
+    
+    return [
+        //APP
+        App::class =&gt; function (ContainerInterface $container) {
+    
+            $app = AppFactory::createFromContainer($container);
+            (require_once __DIR__ . &#39;/middleware.php&#39;)($app);
+            (require_once __DIR__ . &#39;/routes.php&#39;)($app);
+            return $app;
+        },
+        //Controladores
+        HomeController::class =&gt; function (ContainerInterface $container) {
+    
+            return new HomeController($container);
+        },
+        //Router
+        &#39;router&#39; =&gt; function (ContainerInterface $container) {
+    
+            return $container-&gt;get(App::class)-&gt;getRouteCollector()-&gt;getRouteParser();
+        },
+        //Formularios
+        &#39;form.factory&#39; =&gt; function (ContainerInterface $container) {
+    
+            $csrfGenerator = new UriSafeTokenGenerator();
+            $csrfStorage = new NativeSessionTokenStorage();
+            $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage);
+            return Forms::createFormFactoryBuilder()-&gt;addExtensions([
+                new HttpFoundationExtension(),
+                new CsrfExtension($csrfManager),
+                new ValidatorExtension($container-&gt;get(&#39;validator&#39;))
+            ])-&gt;getFormFactory();
+        },
+        &#39;validator&#39; =&gt; function (ContainerInterface $container) {
+    
+            return Validation::createValidator();
+        },
+        //Twig
+        &#39;view&#39; =&gt; function (ContainerInterface $container) {
+    
+            $csrfGenerator = new UriSafeTokenGenerator();
+            $csrfStorage = new NativeSessionTokenStorage();
+            $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage);
+            $defaultFormTheme = &#39;bootstrap_5_layout.html.twig&#39;;
+            $appVariableReflection = new \ReflectionClass(&#39;\Symfony\Bridge\Twig\AppVariable&#39;);
+            $vendorTwigBridgeDir = dirname($appVariableReflection-&gt;getFileName());
+            $twig = Twig::create([
+                __DIR__ . &#39;/../templates&#39;,
+                $vendorTwigBridgeDir . &#39;/Resources/views/Form&#39;
+            ], [&#39;cache&#39; =&gt; false]);
+            $formEngine = new TwigRendererEngine([
+                $defaultFormTheme,
+            ], $twig-&gt;getEnvironment());
+            $twig-&gt;addRuntimeLoader(new FactoryRuntimeLoader([
+                FormRenderer::class =&gt; function () use ($formEngine, $csrfManager) {
+    
+                    return new FormRenderer($formEngine, $csrfManager);
+                }
+            ]));
+            $entryPoints = new EntrypointLookup(__DIR__ . &#39;/../public/build/entrypoints.json&#39;);
+            $tagRenderer = new TagRenderer($entryPoints);
+            $extension = new EntrypointsTwigExtension($entryPoints, $tagRenderer);
+            $twig-&gt;addExtension($extension);
+            $twig-&gt;addExtension(new FormExtension());
+            $twig-&gt;addExtension(new TranslationExtension(new Translator(&#39;en&#39;)));
+            $twig-&gt;addExtension(new RouterExtension($container));
+            return $twig;
+        },
+    ];
+</code></pre>
+      </div>
+  
+
+<h2 id="actualizar-el-archivo-configappphp">Actualizar el archivo <code>config/app.php</code> <a href="#actualizar-el-archivo-configappphp" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para usar PropelORM en tu proyecto, necesitas actualizar el archivo <code>config/app.php</code> con el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="c2ac13d" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    use DI\ContainerBuilder;
+    use Slim\App;
+    
+    require_once __DIR__ . &#39;/../vendor/autoload.php&#39;;
+    require_once __DIR__ . &#39;/config.php&#39;;
+    $containerBuilder = new ContainerBuilder();
+    // Add DI container definitions
+    $containerBuilder-&gt;addDefinitions(__DIR__ . &#39;/container.php&#39;);
+    // Create DI container instance
+    try {
+        $container = $containerBuilder-&gt;build();
+        $app = $container-&gt;get(App::class);
+        $app-&gt;run();
+    } catch (Exception $e) {
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="crear-los-modelos">Crear los Modelos <a href="#crear-los-modelos" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Crea la clase <code>AbstractModel</code> en la carpeta src/Models y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="30c211d" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms\Models;
+    
+    use Propel\Runtime\ActiveQuery\ModelCriteria;
+    
+    abstract class AbstractModel
+    {
+    
+        protected $query;
+    
+        public function __construct($class)
+        {
+    
+            $this-&gt;query = new ModelCriteria(null, $class);
+        }
+    
+        public abstract function getAll();
+    
+        public abstract function getById($id);
+    
+        public abstract function deleteById($id);
+    
+        public abstract function save($data);
+    
+        public abstract function update($data);
+    }
+
+</code></pre>
+      </div>
+  
+
+<p>Como ejemplo veremos el modelo de la tabla <code>category</code>.</p>
+<p>Crea la clase <code>CategoryModel</code> en la carpeta src/Models y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="e93e0cc" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms\Models;
+    
+    use Cms\Map\CategoryTableMap;
+    use Laminas\Diactoros\Response;
+    use Laminas\Diactoros\ServerRequest as Request;
+    use Propel\Runtime\ActiveQuery\Criteria;
+    use Propel\Runtime\Exception\PropelException;
+    use Slim\Routing\RouteContext;
+    
+    class CategoryModel extends AbstractModel
+    {
+        public function __construct()
+        {
+    
+            parent::__construct(CategoryTableMap::OM_CLASS);
+        }
+    
+        /**
+         * @return mixed|\Propel\Runtime\Collection\Collection $categories
+         */
+        public function getAll(): mixed
+        {
+    
+            return $this-&gt;query-&gt;find();
+        }
+    
+        public function tableLoader(Request $request, Response $response, array $args): Response
+        {
+            $search = $args[&#39;search&#39;] ?? null;
+            $limit = $args[&#39;limit&#39;] ?? null;
+            $offset = $args[&#39;offset&#39;] ?? null;
+            if (is_null($limit) || is_null($offset)) {
+    
+                return $response;
+            }
+            $router = RouteContext::fromRequest($request)-&gt;getRouteParser();
+            $next = $router-&gt;fullUrlFor($request-&gt;getUri(), &#34;category_table&#34;) . &#34;/$limit/&#34; . ($offset &#43; $limit);
+            $previous = $offset == 0 ? null : $router-&gt;fullUrlFor($request-&gt;getUri(), &#34;category_table&#34;) . &#34;/$limit/&#34; . ($offset - $limit);
+            if (!is_null($search)) {
+                $count = $this-&gt;query-&gt;filterByCategoryName(&#34;%&#34; . $search . &#34;%&#34;, Criteria::LIKE)-&gt;count();
+                $data = $this-&gt;query-&gt;filterByCategoryName( &#34;%&#34; . $search . &#34;%&#34;, Criteria::LIKE)-&gt;limit($limit)-&gt;offset($offset);
+            } else {
+                $count = $this-&gt;query-&gt;find()-&gt;count();
+                $data = $this-&gt;query-&gt;limit($limit)-&gt;offset($offset);
+            }
+            $output = [
+                &#39;count&#39; =&gt; $count,
+                &#39;next&#39; =&gt; $next,
+                &#39;previous&#39; =&gt; $previous
+            ];
+            foreach ($data as $category) {
+    
+                $output[&#39;results&#39;][] = [
+                    &#39;edit&#39; =&gt; &#34;&lt;a class=&#39;btn btn-primary edit&#39; entity=&#39;&#34; . $category-&gt;getIdCategory() . &#34;&#39;&gt;&#34; .
+                        &#34;&lt;i class=&#39;cil-pencil pe-2&#39;&gt;&lt;/i&gt;Editar&lt;/a&gt;&#34;,
+                    &#39;name&#39; =&gt; $category-&gt;getCategoryName(),
+                    &#39;father&#39; =&gt; !is_null($category-&gt;getParentCategory()) ? $category-&gt;getCategoryRelatedByParentCategory()-&gt;getCategoryName() : &#34;&#34;,
+                ];
+            }
+            $response-&gt;getBody()-&gt;write(json_encode($output));
+            return $response-&gt;withHeader(&#34;Content-Type&#34;, &#34;application/json&#34;);
+        }
+    
+        public function getById($id)
+        {
+    
+            return $this-&gt;query-&gt;findPk($id);
+        }
+    
+        public function deleteById($id): bool
+        {
+    
+            $category = $this-&gt;query-&gt;findPk($id);
+            try {
+                $category-&gt;delete();
+            } catch (PropelException $e) {
+                return false;
+            }
+            return true;
+        }
+    
+        public function save($data): bool
+        {
+    
+            try {
+                $data-&gt;setNew(true);
+                $data-&gt;save();
+            } catch (PropelException $e) {
+                return false;
+            }
+            return true;
+        }
+    
+        public function update($data): bool
+        {
+            try {
+                $data-&gt;setNew(false);
+                $data-&gt;save();
+            } catch (PropelException $e) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="modificar-el-archivo-category">Modificar el archivo <code>Category</code> <a href="#modificar-el-archivo-category" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Crea la clase <code>Category</code> en la carpeta src y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="f2c9f72" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms;
+    
+    use Cms\Base\Category as BaseCategory;
+    
+    /**
+     * Skeleton subclass for representing a row from the &#39;category&#39; table.
+     *
+     *
+     *
+     * You should add additional methods to this class to meet the
+     * application requirements.  This class will only be generated as
+     * long as it does not already exist in the output directory.
+     */
+    class Category extends BaseCategory {
+        public function setParentCategory($v) {
+    
+            if ($v instanceof Category) {
+                parent::setParentCategory($v-&gt;getCategoryId());
+            } else {
+                parent::setParentCategory($v);
+            }
+        }
+    
+        public function getParentCategoryName(): string {
+    
+            return CategoryQuery::create()-&gt;findPk($this-&gt;getParentCategory())-&gt;getCategoryName();
+        }
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="crear-los-formularios">Crear los Formularios <a href="#crear-los-formularios" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Crea la clase <code>CategoryForm</code> en la carpeta src/Forms y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="10e7321" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms\Forms;
+    
+    use Cms\CategoryQuery;
+    use Cms\Models\CategoryModel;
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+    use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+    use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\Form\FormBuilderInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolver;
+    
+    class CategoryForm extends AbstractType
+    {
+        private CategoryModel $model;
+    
+        public function __construct()
+        {
+    
+            $this-&gt;model = new CategoryModel();
+        }
+    
+        public function buildForm(FormBuilderInterface $builder, array $options): void
+        {
+    
+            $builder-&gt;setAction($options[&#39;attr&#39;][&#39;action&#39;]);
+            $builder-&gt;add(&#39;categoryName&#39;, TextType::class, [
+                &#39;label&#39; =&gt; &#39;Nombre de la Categoría&#39;,
+                &#39;required&#39; =&gt; true,
+            ])-&gt;add(&#39;parentCategory&#39;, ChoiceType::class, [
+                &#39;label&#39; =&gt; &#39;Categoria Padre&#39;,
+                &#39;required&#39; =&gt; false,
+                &#39;choices&#39; =&gt; $this-&gt;getCategoryList(),
+                &#39;choice_label&#39; =&gt; function ($choice, $key, $value) {
+    
+                    return $choice-&gt;getCategoryName();
+                },
+                &#39;choice_value&#39; =&gt; function ($choice) {
+    
+                    if (is_int($choice)) {
+    
+                        $query = new CategoryQuery();
+                        $choice = $query-&gt;create()
+                            -&gt;findOneByIdCategory($choice);
+                    }
+                    return $choice ? $choice-&gt;getCategoryId() : &#39;&#39;;
+                },
+            ])-&gt;add(&#39;save&#39;, SubmitType::class, [
+                &#39;label&#39; =&gt; &#39;Save&#39;,
+            ])-&gt;add(&#39;cancel&#39;, ButtonType::class, [
+                &#39;label&#39; =&gt; &#39;Cancel&#39;,
+                &#39;attr&#39; =&gt; [
+                    &#39;onclick&#39; =&gt; &#39;window.location.href = &#34;&#39; . $options[&#39;attr&#39;][&#39;url&#39;] . &#39;&#34;&#39;,
+                ],
+            ]);
+        }
+    
+        public function configureOptions(OptionsResolver $resolver): void
+        {
+    
+            $resolver-&gt;setDefaults([
+                &#39;data_class&#39; =&gt; &#39;Cms\Category&#39;,
+            ]);
+        }
+    
+        private function getCategoryList(): array
+        {
+    
+            $categories = $this-&gt;model-&gt;getAll();
+            $list = [];
+            foreach ($categories as $category) {
+                $list[$category-&gt;getCategoryId()] = $category;
+            }
+            return $list;
+        }
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="actualizar-la-clase-abstractcontroller">Actualizar la clase <code>AbstractController</code> <a href="#actualizar-la-clase-abstractcontroller" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para usar PropelORM en tu proyecto, necesitas actualizar la clase <code>AbstractController</code> con el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="d860a0b" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms\Controller;
+    
+    use Laminas\Diactoros\Response;
+    use Psr\Container\ContainerExceptionInterface;
+    use Psr\Container\ContainerInterface;
+    use Psr\Container\NotFoundExceptionInterface;
+    use Symfony\Component\Form\FormInterface;
+    
+    abstract class AbstractController
+    {
+        protected ContainerInterface $container;
+    
+        public function __construct(ContainerInterface $container)
+        {
+    
+            $this-&gt;container = $container;
+        }
+    
+        public function render(Response $response, $template, $data = []): Response
+        {
+    
+            try {
+                return $this-&gt;container-&gt;get(&#39;view&#39;)-&gt;render($response, $template, $data);
+            } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+                return $response;
+            }
+        }
+    
+        public function redirect($response, $url): Response
+        {
+    
+            return $response-&gt;withHeader(&#39;Location&#39;, $url)-&gt;withStatus(302);
+        }
+    
+        public function createForm($entity, $class, $id, $method): ?FormInterface
+        {
+    
+            try {
+                $factory = $this-&gt;container-&gt;get(&#39;form.factory&#39;);
+                return $factory-&gt;createBuilder($class, $entity, [
+                    &#39;attr&#39; =&gt; [
+                        &#39;id&#39; =&gt; $id,
+                        &#39;url&#39; =&gt; $this-&gt;container-&gt;get(&#39;router&#39;)-&gt;urlFor($id),
+                        &#39;action&#39; =&gt; $this-&gt;container-&gt;get(&#39;router&#39;)-&gt;urlFor($id . &#34;_&#34; . $method)
+                    ]
+                ])-&gt;getForm();
+            } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+                return null;
+            }
+        }
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="crear-los-controladores">Crear los Controladores <a href="#crear-los-controladores" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Crea la clase <code>CategoryController</code> en la carpeta src/Controller y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="fe14f6a" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    namespace Cms\Controller;
+    
+    use Cms\Category;
+    use Cms\Forms\CategoryForm;
+    use Cms\Models\CategoryModel;
+    use Laminas\Diactoros\Response as Response;
+    use Laminas\Diactoros\ServerRequest as Request;
+    use Psr\Container\ContainerInterface;
+    use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+    
+    class CategoryController extends AbstractController
+    {
+        private CategoryModel $model;
+    
+        public function __construct(ContainerInterface $container)
+        {
+    
+            parent::__construct($container);
+            $this-&gt;model = new CategoryModel();
+        }
+    
+        public function index(Request $request, Response $response, $args): Response
+        {
+    
+            $categories = $this-&gt;model-&gt;getAll();
+            return $this-&gt;render($response, &#39;category/index.html.twig&#39;, [
+                &#39;categories&#39; =&gt; $categories,
+            ]);
+        }
+    
+        public function add(Request $request, Response $response, $args): Response
+        {
+    
+            $req = SymfonyRequest::createFromGlobals();
+            $category = new Category();
+            $form = $this-&gt;createForm($category, CategoryForm::class, &#39;category&#39;, &#39;add&#39;);
+            $form-&gt;handleRequest($req);
+            if ($form-&gt;isSubmitted() &amp;&amp; $form-&gt;isValid()) {
+    
+                $this-&gt;model-&gt;save($category);
+                return $this-&gt;redirect($response, $this-&gt;container-&gt;get(&#39;router&#39;)-&gt;urlFor(&#39;category&#39;));
+            }
+            return $this-&gt;render($response, &#39;forms.html.twig&#39;, [
+                &#39;form&#39; =&gt; $form-&gt;createView(),
+                &#39;form_title&#39; =&gt; &#39;Añadir Categoría&#39;
+            ]);
+        }
+    
+        public function table(Request $request, Response $response, $args): Response
+        {
+            return $this-&gt;model-&gt;tableLoader($request, $response, $args);
+        }
+    }
+
+</code></pre>
+      </div>
+  
+
+<h2 id="actualizar-el-archivo-configroutesphp">Actualizar el archivo <code>config/routes.php</code> <a href="#actualizar-el-archivo-configroutesphp" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Para usar PropelORM en tu proyecto, necesitas actualizar el archivo <code>config/routes.php</code> con el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="04e9316" class="language-php line-numbers"
+        ><code class="language-php"
+        >
+    &lt;?php
+    
+    use Cms\Controller\CategoryController;
+    use Cms\Controller\HomeController;
+    use Slim\App;
+    
+    return function (App $app) {
+    
+        $app-&gt;get(&#39;/[index]&#39;, [
+            HomeController::class,
+            &#39;index&#39;
+        ]);
+        $app-&gt;get(&#39;/hello/{name}&#39;, [
+            HomeController::class,
+            &#39;hello&#39;
+        ]);
+        $app-&gt;group(&#39;/category&#39;, function ($group) {
+    
+            $group-&gt;get(&#39;&#39;, [
+                CategoryController::class,
+                &#39;index&#39;
+            ])-&gt;setName(&#39;category&#39;);
+            $group-&gt;map([&#39;GET&#39;, &#39;POST&#39;], &#39;/add&#39;, [
+                CategoryController::class,
+                &#39;add&#39;
+            ])-&gt;setName(&#39;category_add&#39;);
+            $group-&gt;get(&#39;/edit/{id}&#39;, [
+                CategoryController::class,
+                &#39;edit&#39;
+            ])-&gt;setName(&#39;category_edit&#39;);
+            $group-&gt;get(&#39;/delete/{id}&#39;, [
+                CategoryController::class,
+                &#39;delete&#39;
+            ])-&gt;setName(&#39;category_delete&#39;);
+            $group-&gt;get(&#34;/tableData[/{limit}/{offset}]&#34;, [
+                CategoryController::class,
+                &#34;table&#34;
+            ])-&gt;setName(&#34;category_table&#34;);
+            $group-&gt;get(&#34;/tableData/{search}/{limit}/{offset}&#34;, [
+                CategoryController::class,
+                &#34;table&#34;
+            ])-&gt;setName(&#34;category_search&#34;);
+        });
+    };
+
+</code></pre>
+      </div>
+  
+
+<h2 id="las-vistas">Las Vistas <a href="#las-vistas" class="anchor" aria-hidden="true"><i class="material-icons align-middle">link</i></a></h2><p>Crea la vista <code>category/index.html.twig</code> en la carpeta templates y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="91563d0" class="language-twig line-numbers"
+        ><code class="language-twig"
+        >
+    {% extends &#39;base.html.twig&#39; %}
+    {% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags(&#39;category&#39;, {
+    defer: true
+    }) }}
+    {% endblock %}
+    
+    {% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags(&#39;category&#39;) }}
+    {% endblock %}
+    {% block content %}
+    &lt;h1&gt;Lista de Categorías&lt;/h1&gt;
+    &lt;div&gt;
+    &lt;a class=&#34;btn btn-primary&#34; href=&#34;{{ path(&#39;category_add&#39;) }}&#34;&gt;Agregar Categoría&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;hr/&gt;
+    &lt;div id=&#34;table-loader&#34; loader=&#34;{{ path(&#39;category_table&#39;) }}&#34;&gt;&lt;/div&gt;
+    &lt;div id=&#34;wrapper&#34;&gt;&lt;/div&gt;
+    &lt;form id=&#34;entityForm&#34; method=&#34;post&#34; action=&#34;&#34;&gt;
+    &lt;input type=&#34;hidden&#34; name=&#34;id&#34; id=&#34;idEntity&#34; value=&#34;&#34;/&gt;
+    &lt;input type=&#34;hidden&#34; id=&#34;editLink&#34; value=&#34;{{ path(&#34;category_add&#34;) }}&#34;/&gt;
+    &lt;/form&gt;
+    {% endblock %}
+
+</code></pre>
+      </div>
+  
+
+<p>Crea la vista <code>forms.html.twig</code> en la carpeta templates y pega el siguiente contenido:</p>
+
+
+
+
+
+
+  
+      <div class="prism-shortcode">
+      <pre id="e622fd3" class="language-twig line-numbers"
+        ><code class="language-twig"
+        >
+    {% extends &#39;base.html.twig&#39; %}
+    {% block content %}
+    &lt;h1&gt;{{ form_title }}&lt;/h1&gt;
+    &lt;form method=&#34;post&#34; action=&#34;{{ form.vars.attr.url }}&#34;&gt;
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    &lt;/form&gt;
+    {% endblock %}
+
+</code></pre>
+      </div>
+  
+
+
+    </div>
+
+    
+
+    
+                            </div>
+                            <div><hr class="doc-hr">
+<div id="doc-nav" class="d-print-none">
+
+	<div class="row flex-xl-nowrap ">
+	<div class="col-sm-6 pt-2 doc-next">
+		<a href="/ims_doc/docs/crud/introduction/">
+			<div class="card h-100 my-1">
+				<div class="card-body py-2">
+                    <p class="card-title fs-5 fw-semibold lh-base mb-0"><i class="material-icons align-middle">navigate_before</i> Introducción</p>
+					
+				</div>
+			</div>
+		</a>
+        </div>
+	<div class="col-sm-6 pt-2 doc-prev">
+		<a class="ms-auto" href="/ims_doc/docs/crud/views/">
+			<div class="card h-100 my-1 text-end">
+				<div class="card-body py-2">
+                    <p class="card-title fs-5 fw-semibold lh-base mb-0">Vistas <i class="material-icons align-middle">navigate_next</i></p>
+					
+				</div>
+			</div>
+		</a>
+        </div>
+	</div>
+</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<footer class="shadow py-3 d-print-none">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="text-sm-start text-center mx-md-2">
+                    <p class="mb-0">
+                        
+                        M. en E. Jesús Aurelio Castro Magaña
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</main>
+    </div>
+</div>
+
+
+    
+    <button onclick="topFunction()" id="back-to-top" aria-label="Back to Top Button" class="back-to-top fs-5"><svg width="24" height="24"><path d="M12,10.224l-6.3,6.3L4.32,15.152,12,7.472l7.68,7.68L18.3,16.528Z" style="fill:#fff"/></svg></button>
+    
+
+
+
+
+    <script>(()=>{var e=document.getElementById("mode");e!==null&&(window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{e.matches?(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")):(localStorage.setItem("theme","light"),document.documentElement.removeAttribute("data-dark-mode"))}),e.addEventListener("click",()=>{document.documentElement.toggleAttribute("data-dark-mode"),localStorage.setItem("theme",document.documentElement.hasAttribute("data-dark-mode")?"dark":"light")}),localStorage.getItem("theme")==="dark"?document.documentElement.setAttribute("data-dark-mode",""):document.documentElement.removeAttribute("data-dark-mode"))})()</script>
+
+
+
+
+
+    
+    
+    
+
+
+
+
+
+
+    <script src="/ims_doc/docs/js/bootstrap.js" defer></script>
+
+
+    <script type="text/javascript" src="http://localhost:1313/ims_doc/docs/js/bundle.js" defer></script>
+
+
+
+<script type="module">
+    var suggestions = document.getElementById('suggestions');
+    var search = document.getElementById('flexsearch');
+
+    const flexsearchContainer = document.getElementById('FlexSearchCollapse');
+
+    const hideFlexsearchBtn = document.getElementById('hideFlexsearch');
+
+    const configObject = { toggle: false }
+    const flexsearchContainerCollapse = new Collapse(flexsearchContainer, configObject) 
+
+    if (search !== null) {
+        document.addEventListener('keydown', inputFocus);
+        flexsearchContainer.addEventListener('shown.bs.collapse', function () {
+            search.focus();
+        });
+        
+        var topHeader = document.getElementById("top-header");
+        document.addEventListener('click', function(elem) {
+            if (!flexsearchContainer.contains(elem.target) && !topHeader.contains(elem.target))
+                flexsearchContainerCollapse.hide();
+        });
+    }
+
+    hideFlexsearchBtn.addEventListener('click', () =>{
+        flexsearchContainerCollapse.hide()
+    })
+
+    function inputFocus(e) {
+        if (e.ctrlKey && e.key === '/') {
+            e.preventDefault();
+            flexsearchContainerCollapse.toggle();
+        }
+        if (e.key === 'Escape' ) {
+            search.blur();
+            
+            flexsearchContainerCollapse.hide();
+        }
+    };
+
+    document.addEventListener('click', function(event) {
+
+    var isClickInsideElement = suggestions.contains(event.target);
+
+    if (!isClickInsideElement) {
+        suggestions.classList.add('d-none');
+    }
+
+    });
+
+    
+
+
+    document.addEventListener('keydown',suggestionFocus);
+
+    function suggestionFocus(e) {
+    const suggestionsHidden = suggestions.classList.contains('d-none');
+    if (suggestionsHidden) return;
+
+    const focusableSuggestions= [...suggestions.querySelectorAll('a')];
+    if (focusableSuggestions.length === 0) return;
+
+    const index = focusableSuggestions.indexOf(document.activeElement);
+
+    if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const nextIndex = index > 0 ? index - 1 : 0;
+        focusableSuggestions[nextIndex].focus();
+    }
+    else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextIndex= index + 1 < focusableSuggestions.length ? index + 1 : index;
+        focusableSuggestions[nextIndex].focus();
+    }
+
+    }
+
+    
+
+
+    (function(){
+
+    var index = new FlexSearch.Document({
+        
+        tokenize: "forward",
+        minlength:  0 ,
+        cache:  100 ,
+        optimize:  true ,
+        document: {
+        id: 'id',
+        store: [
+            "href", "title", "description"
+        ],
+        index: ["title", "description", "content"]
+        }
+    });
+
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+
+    
+
+    index.add(
+            {
+                id:  0 ,
+                href: "\/ims_doc\/docs\/start\/",
+                title: "Inicio rápido",
+                description: "Crear un nuevo sitio linkPara crear el nuevo sitio, crea un archivo composer.json y pega el siguiente contenido:\n{ \"require\": { \"laminas/laminas-di\": \"^3.14\", \"laminas/laminas-diactoros\": \"^3.3\", \"laminas/laminas-servicemanager\": \"^4.1\", \"php-di/php-di\": \"^7.0\", \"slim/slim\": \"^4.13\", \"zeuxisoo/slim-whoops\": \"^0.7.3\" }, \"autoload\": { \"psr-4\": { \"Cms\\\\\": \"src/\" } } } Es importante para que este proceso y el siguiente funcionen correctamente, que tengas instalado Composer en tu sistema. Si no lo tienes, puedes descargarlo desde getcomposer.org. De lo contrario, no podrás continuar con el tutorial.",
+                content: "Crear un nuevo sitio linkPara crear el nuevo sitio, crea un archivo composer.json y pega el siguiente contenido:\n{ \"require\": { \"laminas/laminas-di\": \"^3.14\", \"laminas/laminas-diactoros\": \"^3.3\", \"laminas/laminas-servicemanager\": \"^4.1\", \"php-di/php-di\": \"^7.0\", \"slim/slim\": \"^4.13\", \"zeuxisoo/slim-whoops\": \"^0.7.3\" }, \"autoload\": { \"psr-4\": { \"Cms\\\\\": \"src/\" } } } Es importante para que este proceso y el siguiente funcionen correctamente, que tengas instalado Composer en tu sistema. Si no lo tienes, puedes descargarlo desde getcomposer.org. De lo contrario, no podrás continuar con el tutorial.\nAsí mismo es necesario descargar Yarn, puedes descargarlo desde yarnpkg.com.\nInstalar dependencias linkPara instalar las dependencias, ejecuta el siguiente comando en la terminal:\ncomposer install Una vez que Composer haya terminado, se creara el directorio vendor en tu proyecto.\nLa estructura de carpetas linkLa estructura de carpetas de tu proyecto debería verse así:\n📦 cms ├─ config │ ├─ app.php │ ├─ container.php │ ├─ middleware.php │ ├─ routes.php ├─ public │ ├─ index.php │ └─ .htaccess ├─ src ├─ vendor ├─ .htaccess └─ composer.json ©generated by Project Tree Generator\nCrear un archivo de configuración linkCrea un archivo config/app.php y pega el siguiente contenido:\n\u003c?php use DI\\ContainerBuilder; use Slim\\App; require_once __DIR__ . '/../vendor/autoload.php'; $containerBuilder = new ContainerBuilder(); // Add DI container definitions $containerBuilder-\u003eaddDefinitions(__DIR__ . '/container.php'); // Create DI container instance try { $container = $containerBuilder-\u003ebuild(); $app = $container-\u003eget(App::class); $app-\u003erun(); } catch (Exception $e) { } Crear un archivo de contenedor linkCrea un archivo config/container.php y pega el siguiente contenido:\n\u003c?php use Cms\\Controller\\HomeController; use Psr\\Container\\ContainerInterface; use Slim\\App; use Slim\\Factory\\AppFactory; return [ //APP App::class =\u003e function (ContainerInterface $container) { $app = AppFactory::createFromContainer($container); (require_once __DIR__ . '/routes.php')($app); (require_once __DIR__ . '/middleware.php')($app); return $app; } ]; Crear un archivo de rutas linkCrea un archivo config/routes.php y pega el siguiente contenido:\n\u003c?php use Slim\\App; return function (App $app) { $app-\u003eget('/', function ($request, $response) { return $response-\u003ewrite('Hello, World!'); }); }; Crear un archivo de middlewares linkCrea un archivo config/middleware.php y pega el siguiente contenido:\n\u003c?php use Slim\\App; return function (App $app) { // Parse json, form data and xml $app-\u003eaddBodyParsingMiddleware(); // Add the Slim built-in routing middleware $app-\u003eaddRoutingMiddleware(); //Whops! $app-\u003eadd(new Zeuxisoo\\Whoops\\Slim\\WhoopsMiddleware([ 'enable' =\u003e true, 'editor' =\u003e 'sublime', 'title' =\u003e 'Parece que hay un error', ])); //Add Base Path $app-\u003esetBasePath('/cms_ims'); }; Crear un archivo de entrada linkCrea un archivo public/index.php y pega el siguiente contenido:\n\u003c?php require_once __DIR__ . '/../config/app.php'; Crear archivos .htaccess linkCrear un archivo .htaccess en la raíz del proyecto y pega el siguiente contenido:\nRewriteEngine on RewriteRule ^$ public/ [L] RewriteRule (.*) public/$1 [L] Crea un archivo .htaccess en la carpeta public y pega el siguiente contenido:\nRewriteEngine On RewriteBase /[cms_ims] RewriteCond %{REQUEST_FILENAME} !-f RewriteCond %{REQUEST_FILENAME} !-d RewriteRule ^ index.php [QSA,L] El apartado [cms_ims] es el nombre de la carpeta en la que se encuentra tu proyecto.\nEjecutar el proyecto linkPara ejecutar el proyecto, ejecuta el siguiente comando en la terminal:\nphp -S localhost:8000 -t public Abre tu navegador y navega a http://localhost:8000. Deberías ver el mensaje Hello, World!.\n¡Felicidades! Has creado tu primer proyecto Slim.\n"
+            }
+        );
+    index.add(
+            {
+                id:  1 ,
+                href: "\/ims_doc\/docs\/controllers\/",
+                title: "Los controladores",
+                description: "Introducción linkLos controladores son responsables de manejar las solicitudes HTTP y devolver una respuesta. En Slim, los controladores son clases PHP que contienen métodos de acción. Cada método de acción corresponde a una ruta y un verbo HTTP específico. Crear un controlador linkPara crear un controlador, crea un archivo en el directorio src/Controller y pega el siguiente contenido: \u003c?php namespace Cms\\Controller; use Laminas\\Diactoros\\Response as Response; use Laminas\\Diactoros\\ServerRequest as Request; use Psr\\Container\\ContainerInterface; class HomeController { private ContainerInterface $container; public function __construct(ContainerInterface $container) { $this-\u003econtainer = $container; } public function index(Request $request, Response $response, $args): Response { $response-\u003egetBody()-\u003ewrite('Home Controller'); return $response; } public function hello(Request $request, Response $response, $args): Response { $response-\u003egetBody()-\u003ewrite(\"¡Hola, {$args['name']}!",
+                content: "Introducción linkLos controladores son responsables de manejar las solicitudes HTTP y devolver una respuesta. En Slim, los controladores son clases PHP que contienen métodos de acción. Cada método de acción corresponde a una ruta y un verbo HTTP específico.\nCrear un controlador linkPara crear un controlador, crea un archivo en el directorio src/Controller y pega el siguiente contenido:\n\u003c?php namespace Cms\\Controller; use Laminas\\Diactoros\\Response as Response; use Laminas\\Diactoros\\ServerRequest as Request; use Psr\\Container\\ContainerInterface; class HomeController { private ContainerInterface $container; public function __construct(ContainerInterface $container) { $this-\u003econtainer = $container; } public function index(Request $request, Response $response, $args): Response { $response-\u003egetBody()-\u003ewrite('Home Controller'); return $response; } public function hello(Request $request, Response $response, $args): Response { $response-\u003egetBody()-\u003ewrite(\"¡Hola, {$args['name']}!\"); return $response; } } Usar un controlador linkPara usar un controlador, necesitas definirlo en el contenedor de dependencias. Crea un archivo config/container.php y pega el siguiente contenido:\n\u003c?php use Cms\\Controller\\HomeController; use Psr\\Container\\ContainerInterface; use Slim\\App; use Slim\\Factory\\AppFactory; return [ //APP App::class =\u003e function (ContainerInterface $container) { $app = AppFactory::createFromContainer($container); (require_once __DIR__ . '/routes.php')($app); (require_once __DIR__ . '/middleware.php')($app); return $app; }, HomeController::class =\u003e function (ContainerInterface $container) { return new HomeController($container); }, ]; Como puedes ver, hemos definido un controlador HomeController en el contenedor de dependencias. Ahora puedes usar el controlador en tus rutas.\nUsar un controlador en una ruta linkPara usar un controlador en una ruta, crea un archivo config/routes.php y pega el siguiente contenido:\n\u003c?php use Cms\\Controller\\HomeController; use Slim\\App; return function (App $app) { $app-\u003eget('/', [HomeController::class, 'index']); $app-\u003eget('/hello/{name}', [HomeController::class, 'hello']); }; En este ejemplo, hemos definido dos rutas. La primera ruta llama al método index del controlador HomeController cuando se accede a la raíz del sitio. La segunda ruta llama al método hello del controlador HomeController y pasa un parámetro name en la URL.\nResumen linkEn este tutorial, aprendiste cómo crear y usar controladores en Slim. Los controladores son una forma de organizar tu código y mantenerlo limpio y mantenible. Puedes definir múltiples controladores y métodos de acción para manejar diferentes rutas y verbos HTTP en tu aplicación Slim.\nAhora que sabes cómo usar controladores en Slim, puedes comenzar a construir aplicaciones web más complejas y escalables. ¡Buena suerte!\n"
+            }
+        );
+    index.add(
+            {
+                id:  2 ,
+                href: "\/ims_doc\/docs\/view\/",
+                title: "Las vistas",
+                description: "Cómo crear y usar vistas en Slim",
+                content: "Introducción linkLas vistas son archivos que contienen el código HTML que se mostrará al usuario. En Slim, las vistas se utilizan para separar la lógica de presentación de la lógica de la aplicación. Esto facilita la creación de aplicaciones web más mantenibles y escalables.\nActualizar la configuración linkPara poder utilizar vistas en Slim, primero debes configurar la aplicación para que sepa dónde encontrar los archivos de vista. Abre el archivo composer.json y agrega la siguiente configuración:\n{ \"autoload\": { \"psr-4\": { \"Cms\\\\\": \"src/\" } }, \"require\": { \"laminas/laminas-di\": \"^3.14\", \"laminas/laminas-diactoros\": \"^3.3\", \"laminas/laminas-servicemanager\": \"^4.1\", \"lcharette/webpack-encore-twig\": \"^1.2\", \"php-di/php-di\": \"^7.0\", \"propel/propel\": \"~2.0@beta\", \"slim/slim\": \"^4.13\", \"slim/twig-view\": \"^3.4\", \"symfony/console\": \"^7.1\", \"symfony/form\": \"^7.1\", \"symfony/http-foundation\": \"^7.1\", \"symfony/security-csrf\": \"^7.1\", \"symfony/translation\": \"^7.1\", \"symfony/twig-bridge\": \"^7.1\", \"zeuxisoo/slim-whoops\": \"^0.7.3\" } } Después de agregar la configuración, ejecuta el siguiente comando en la terminal para instalar las dependencias:\ncomposer update Configurar Yarn linkPara poder compilar los archivos de vista, necesitas configurar Yarn. Crea un archivo package.json en la raíz del proyecto y agrega la siguiente configuración:\n{ \"name\": \"cms_ims\", \"packageManager\": \"yarn@4.0.2\", \"devDependencies\": { \"@babel/core\": \"^7.22.8\", \"@babel/plugin-transform-class-properties\": \"^7.24.7\", \"@babel/preset-env\": \"^7.22.7\", \"@symfony/webpack-encore\": \"^4.3.0\", \"babel-loader\": \"^9.1.3\", \"mini-css-extract-plugin\": \"^2.7.6\", \"pnp-webpack-plugin\": \"^1.7.0\", \"webpack\": \"^5.88.1\", \"webpack-cli\": \"^5.1.4\", \"webpack-manifest-plugin\": \"^5.0.0\", \"webpack-notifier\": \"1.15.0\" }, \"scripts\": { \"dev-server\": \"encore dev-server\", \"dev\": \"encore dev\", \"watch\": \"encore dev --watch\", \"build\": \"encore production --progress\" }, \"dependencies\": { \"@popperjs/core\": \"^2.11.8\", \"bootstrap\": \"5.3.3\", \"font-awesome\": \"^4.7.0\", \"jquery\": \"^3.7.1\" } } Después de agregar la configuración, ejecuta el siguiente comando en la terminal para instalar las dependencias:\nyarn install Configurar Webpack Encore linkCrea un archivo webpack.config.js en la raíz del proyecto y agrega la siguiente configuración:\nconst Encore = require('@symfony/webpack-encore'); // Manually configure the runtime environment if not already configured yet by the \"encore\" command. // It's useful when you use tools that rely on webpack.config.js file. if (!Encore.isRuntimeEnvironmentConfigured()) { Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev'); } Encore // directory where compiled assets will be stored .setOutputPath('public/build/') // public path used by the web server to access the output path .setPublicPath('http://localhost/cms_ims/build') .configureFilenames({ js: '[name].js', css: '[name].css', assets: 'assets/[name].[ext]', }) // only needed for CDN's or subdirectory deploy .setManifestKeyPrefix('build/') /* * ENTRY CONFIG * * Each entry will result in one JavaScript file (e.g. app.js) * and one CSS file (e.g. app.css) if your JavaScript imports CSS. */ .addEntry('app', './assets/app.js') // When enabled, Webpack \"splits\" your files into smaller pieces for greater optimization. .splitEntryChunks() // will require an extra script tag for runtime.js // but, you probably want this, unless you're building a single-page app .enableSingleRuntimeChunk() /* * FEATURE CONFIG * * Enable \u0026 configure other features below. For a full * list of features, see: * https://symfony.com/doc/current/frontend.html#adding-more-features */ .cleanupOutputBeforeBuild() .enableBuildNotifications() .enableSourceMaps(!Encore.isProduction()) // enables hashed filenames (e.g. app.abc123.css) .enableVersioning(Encore.isProduction()) .configureBabel((config) =\u003e { config.plugins.push('@babel/plugin-transform-class-properties'); }) // enables @babel/preset-env polyfills .configureBabelPresetEnv((config) =\u003e { config.useBuiltIns = 'usage'; config.corejs = 3; }) // enables Sass/SCSS support //.enableSassLoader() // uncomment if you use TypeScript //.enableTypeScriptLoader() // uncomment if you use React //.enableReactPreset() // uncomment to get integrity=\"...\" attributes on your script \u0026 link tags // requires WebpackEncoreBundle 1.4 or higher //.enableIntegrityHashes(Encore.isProduction()) // uncomment if you're having problems with a jQuery plugin .autoProvidejQuery() ; module.exports = Encore.getWebpackConfig(); Crear el archivo de assets linkCrea un archivo assets/app.js en la raíz del proyecto y agrega el siguiente contenido:\n//JS import 'bootstrap/dist/js/bootstrap'; //CSS import 'bootstrap/dist/css/bootstrap.css'; import 'font-awesome/css/font-awesome.css'; import './styles/app.css'; Crea un archivo assets/styles/app.css en la raíz del proyecto y agrega el siguiente contenido:\n/* assets/styles/app.css */ body { background-color: #2678c9; font-size: 18px; color: #fff; } Compilar los assets linkEjecuta el siguiente comando en la terminal para compilar los assets:\nyarn build Crear una vista linkCrea un archivo templates/home/base.html.twig en la raíz del proyecto y agrega el siguiente contenido:\n\u003c!DOCTYPE html\u003e Home {% block javascripts %} {{ encore_entry_script_tags('app', { defer: true }) }} {% endblock %} {% block stylesheets %} {{ encore_entry_link_tags('app') }} {% endblock %} Mi Página {% block content %} {{ data }} {% endblock %} \u0026copy; 2024 - All rights reserved\nCrea un archivo templates/index.html.twig en la raíz del proyecto y agrega el siguiente contenido:\n{% extends 'base.html.twig' %} {% block content %} Home Bienvenido a mi página\n{% endblock %} Usar una vista linkComo usaremos diversos controladores en nuestro proyecto, necesitamos configurar un controlador abstracto que nos permita renderizar las vistas. Crea un archivo src/Controller/AbstractController.php y agrega el siguiente contenido:\n\u003c?php namespace Cms\\Controller; use Laminas\\Diactoros\\Response; use Psr\\Container\\ContainerInterface; abstract class AbstractController { protected ContainerInterface $container; public function __construct(ContainerInterface $container) { $this-\u003econtainer = $container; } public function render($response, $template, $data = []): Response { return $this-\u003econtainer-\u003eget('view')-\u003erender($response, $template, $data); } } Después de crear el controlador abstracto, necesitamos configurar el contenedor de dependencias para que pueda inyectar el controlador en los controladores hijos. Abre el archivo config/container.php y agrega el siguiente contenido:\n\u003c?php use Cms\\Controller\\AbstractController;use Cms\\Controller\\HomeController;use Lcharette\\WebpackEncoreTwig\\EntrypointsTwigExtension;use Lcharette\\WebpackEncoreTwig\\TagRenderer;use Psr\\Container\\ContainerInterface;use Slim\\App;use Slim\\Factory\\AppFactory;use Slim\\Views\\Twig;use Symfony\\Bridge\\Twig\\Extension\\FormExtension;use Symfony\\Bridge\\Twig\\Extension\\TranslationExtension;use Symfony\\Bridge\\Twig\\Form\\TwigRendererEngine;use Symfony\\Component\\Form\\FormRenderer;use Symfony\\Component\\Security\\Csrf\\CsrfTokenManager;use Symfony\\Component\\Security\\Csrf\\TokenGenerator\\UriSafeTokenGenerator;use Symfony\\Component\\Security\\Csrf\\TokenStorage\\NativeSessionTokenStorage;use Symfony\\Component\\Translation\\Translator;use Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookup;use Twig\\RuntimeLoader\\FactoryRuntimeLoader; return [ //APP App::class =\u003e function (ContainerInterface $container) { $app = AppFactory::createFromContainer($container); (require_once __DIR__ . '/middleware.php')($app); (require_once __DIR__ . '/routes.php')($app); return $app; }, //Controladores HomeController::class =\u003e function (ContainerInterface $container) { return new HomeController($container); }, //Twig 'view' =\u003e function (ContainerInterface $container) { $csrfGenerator = new UriSafeTokenGenerator(); $csrfStorage = new NativeSessionTokenStorage(); $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage); $defaultFormTheme = 'bootstrap_5_layout.html.twig'; $appVariableReflection = new \\ReflectionClass('\\Symfony\\Bridge\\Twig\\AppVariable'); $vendorTwigBridgeDir = dirname($appVariableReflection-\u003egetFileName()); $twig = Twig::create([ __DIR__ . '/../templates', $vendorTwigBridgeDir . '/Resources/views/Form' ], ['cache' =\u003e false]); $formEngine = new TwigRendererEngine([ $defaultFormTheme, ], $twig-\u003egetEnvironment()); $twig-\u003eaddRuntimeLoader(new FactoryRuntimeLoader([ FormRenderer::class =\u003e function () use ($formEngine, $csrfManager) { return new FormRenderer($formEngine, $csrfManager); } ])); $entryPoints = new EntrypointLookup(__DIR__ . '/../public/build/entrypoints.json'); $tagRenderer = new TagRenderer($entryPoints); $extension = new EntrypointsTwigExtension($entryPoints, $tagRenderer); $twig-\u003eaddExtension($extension); $twig-\u003eaddExtension(new FormExtension()); $twig-\u003eaddExtension(new TranslationExtension(new Translator('en'))); return $twig; }, ]; Modifica el HomeController linkAbre el archivo src/Controller/HomeController.php y modifica el contenido de la clase HomeController de la siguiente manera:\n\u003c?php namespace Cms\\Controller; use Cms\\Book;use Cms\\BookQuery;use Laminas\\Diactoros\\Response as Response;use Laminas\\Diactoros\\ServerRequest as Request;use Propel\\Runtime\\Exception\\PropelException;use Psr\\Container\\ContainerExceptionInterface;use Psr\\Container\\ContainerInterface;use Psr\\Container\\NotFoundExceptionInterface; class HomeController extends AbstractController { public function index(Request $request, Response $response, $args): Response { return $this-\u003erender($response, 'index.html.twig', [ 'data' =\u003e 'Hello, World!' ]); } public function hello(Request $request, Response $response, $args): Response { return $this-\u003erender($response, 'hello.html.twig', [ 'data' =\u003e 'Hello, World!', 'name' =\u003e $args['name'] ]); } } Modifica el archivo de rutas linkAbre el archivo config/routes.php y modifica el contenido de la función anónima de la siguiente manera:\n\u003c?php use Cms\\Controller\\HomeController; use Slim\\App; return function (App $app) { $app-\u003eget('/[index]', [HomeController::class, 'index']); $app-\u003eget('/hello/{name}', [HomeController::class, 'hello']); }; De esta manera, hemos configurado Slim para que pueda renderizar vistas en nuestra aplicación. Ahora puedes crear tantas vistas como necesites y usarlas en tus controladores.\nConclusión linkEn este tutorial, aprendiste cómo crear y usar vistas en Slim. Las vistas son una parte esencial de cualquier aplicación web, ya que permiten separar la lógica de presentación de la lógica de la aplicación. Al seguir este tutorial, podrás crear aplicaciones web más mantenibles y escalables con Slim. ¡Buena suerte!\n"
+            }
+        );
+    index.add(
+            {
+                id:  3 ,
+                href: "\/ims_doc\/docs\/crud\/",
+                title: "Crud",
+                description: "",
+                content: ""
+            }
+        );
+    index.add(
+            {
+                id:  4 ,
+                href: "\/ims_doc\/docs\/crud\/introduction\/",
+                title: "Introducción",
+                description: "Introducción linkEn esta sección, aprenderás a crear un CRUD (Create, Read, Update, Delete) en Slim. Un CRUD es una aplicación que realiza las operaciones básicas de un sistema de gestión de bases de datos. En este caso, usaremos una base de datos MySQL para almacenar los datos.\nPara este tutorial, necesitarás tener instalado Composer y MySQL en tu sistema. Si no los tienes, puedes descargar Composer desde getcomposer.org y MySQL desde mysql.",
+                content: "Introducción linkEn esta sección, aprenderás a crear un CRUD (Create, Read, Update, Delete) en Slim. Un CRUD es una aplicación que realiza las operaciones básicas de un sistema de gestión de bases de datos. En este caso, usaremos una base de datos MySQL para almacenar los datos.\nPara este tutorial, necesitarás tener instalado Composer y MySQL en tu sistema. Si no los tienes, puedes descargar Composer desde getcomposer.org y MySQL desde mysql.com.\nCrear la base de datos linkPrimero, necesitamos crear una base de datos en MySQL. Abre tu cliente de MySQL y ejecuta el siguiente comando:\nCREATE\rDATABASE cms; Este comando creará una base de datos llamada cms en tu servidor MySQL.\nCrear la tabla linkDespués de crear la base de datos, necesitamos crear una tabla para almacenar los datos. Ejecuta el siguiente comando para crear la tabla posts:\ncreate table category\r(\rpost_id int auto_increment\rprimary key,\rcategory_name varchar(150) not null,\rparent_category int null,\rconstraint category_category_post_id_fk\rforeign key (parent_category) references category (post_id)\r);\rcreate table post\r(\rid int auto_increment\rprimary key,\rtitle varchar(255) not null,\rcategory int not null,\rcontent text not null,\rcreated_at timestamp default current_timestamp() not null,\rpost_url varchar(120) not null,\rconstraint posts_category_post_id_fk\rforeign key (category) references category (post_id)\r);\rcreate table tag\r(\rtag_id int auto_increment\rprimary key,\rtag_name varchar(150) not null\r);\rcreate table post_tags\r(\rpost_tags_id int auto_increment\rprimary key,\rpost_id int not null,\rtag_id int not null,\rconstraint post_tags_post_id_fk\rforeign key (post_id) references post (id),\rconstraint post_tags_tag_id_fk\rforeign key (tag_id) references tag (tag_id)\r);\rcreate table role\r(\rrole_id int auto_increment\rprimary key,\rrole_name varchar(150) not null\r);\rcreate table user\r(\ruser_id int auto_increment\rprimary key,\ruser_name varchar(150) not null,\ruser_email varchar(150) not null,\ruser_pass varchar(150) not null,\ruser_role int not null,\rconstraint users_roles_role_id_fk\rforeign key (user_role) references role (role_id)\r);\rcreate table post_gallery\r(\rpost_gallery_id int auto_increment\rprimary key,\rpost_id int not null,\rgallery_image varchar(150) not null,\rconstraint post_gallery_post_id_fk\rforeign key (post_id) references post (id)\r); Este comando creará un conjunto de tablas en tu base de datos cms para almacenar los datos.\nLa estructura de carpetas linkLa estructura de carpetas de tu proyecto debería verse así:\n📦 cms\r├─ config\r│ ├─ app.php\r│ ├─ container.php\r│ ├─ middleware.php\r│ ├─ routes.php\r├─ public\r│ ├─ index.php\r│ └─ .htaccess\r├─ src\r├─ vendor\r├─ .htaccess En la siguiente sección, aprenderás a crear un controlador para manejar las operaciones CRUD en Slim.\n"
+            }
+        );
+    index.add(
+            {
+                id:  5 ,
+                href: "\/ims_doc\/docs\/crud\/orm\/",
+                title: "ORM",
+                description: "ORM linkUn ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un ORM de alto rendimiento para PHP.\nInstalar PropelORM linkPara instalar PropelORM, ejecuta el siguiente comando en la terminal:\ncomposer require propel/propel Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.\nConfigurar PropelORM linkPara configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:",
+                content: "ORM linkUn ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un ORM de alto rendimiento para PHP.\nInstalar PropelORM linkPara instalar PropelORM, ejecuta el siguiente comando en la terminal:\ncomposer require propel/propel Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.\nConfigurar PropelORM linkPara configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:\nphp vendor/bin/propel init Aparecerá un mensaje que te pedirá que elijas el gestor de bases de datos que deseas usar. En este caso, selecciona MySQL.\nDespués de seleccionar MySQL, PropelORM nos solicitará la información de la conexión a la base de datos. Proporciona la información requerida y PropelORM detectará automáticamente la base de datos y creará un archivo de configuración.\nSeguidamente, el sistema te solicitará el directorio en donde deseas guardar los archivos generados. En este caso, elige src. Así mismo te solicitará el nombre del espacio de nombres. En este caso, elige Cms. Finalmente, te solicitará el tipo de archivo de configuración. En este caso, elige xml.\nUna vez que hayas completado estos pasos, PropelORM generará los archivos necesarios en el directorio src.\nRecuerda mover los archivos generados de la carpeta Cms a src. Así como los archivos de configuración de la carpeta generated_conf a config.\nActualizar el archivo composer.json linkPara que PropelORM funcione correctamente, necesitas actualizar el archivo composer.json con el siguiente contenido:\n{ \"autoload\": { \"psr-4\": { \"Cms\\\\\": \"src/\" } }, \"require\": { \"laminas/laminas-di\": \"^3.14\", \"laminas/laminas-diactoros\": \"^3.3\", \"laminas/laminas-servicemanager\": \"^4.1\", \"lcharette/webpack-encore-twig\": \"^1.2\", \"php-di/php-di\": \"^7.0\", \"propel/propel\": \"~2.0@beta\", \"slim/slim\": \"^4.13\", \"slim/twig-view\": \"^3.4\", \"symfony/console\": \"^7.1\", \"symfony/form\": \"^7.1\", \"symfony/http-foundation\": \"^7.1\", \"symfony/security-csrf\": \"^7.1\", \"symfony/translation\": \"^7.1\", \"symfony/twig-bridge\": \"^7.1\", \"zeuxisoo/slim-whoops\": \"^0.7.3\" } } Es importante para que este proceso y el siguiente funcionen correctamente, que tengas instalado Composer en tu sistema.\nSi no lo tienes, puedes descargarlo desde getcomposer.org. De lo contrario, no podrás continuar con el tutorial.\nAsí mismo es necesario descargar Yarn, puedes descargarlo desde yarnpkg.com.\nInstalar dependencias linkPara instalar las dependencias, ejecuta el siguiente comando en la terminal:\ncomposer install Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.\nActualizar el archivo config/container.php linkPara usar PropelORM en tu proyecto, necesitas actualizar el archivo config/container.php con el siguiente contenido:\n\u003c?php use Cms\\Controller\\CategoryController; use Cms\\Controller\\HomeController; use Cms\\Extensions\\RouterExtension; use Lcharette\\WebpackEncoreTwig\\EntrypointsTwigExtension; use Lcharette\\WebpackEncoreTwig\\TagRenderer; use Psr\\Container\\ContainerInterface; use Slim\\App; use Slim\\Factory\\AppFactory; use Slim\\Views\\Twig; use Symfony\\Bridge\\Twig\\Extension\\FormExtension; use Symfony\\Bridge\\Twig\\Extension\\TranslationExtension; use Symfony\\Bridge\\Twig\\Form\\TwigRendererEngine; use Symfony\\Component\\Form\\Extension\\Csrf\\CsrfExtension; use Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension; use Symfony\\Component\\Form\\Extension\\Validator\\ValidatorExtension; use Symfony\\Component\\Form\\FormRenderer; use Symfony\\Component\\Form\\Forms; use Symfony\\Component\\Security\\Csrf\\CsrfTokenManager; use Symfony\\Component\\Security\\Csrf\\TokenGenerator\\UriSafeTokenGenerator; use Symfony\\Component\\Security\\Csrf\\TokenStorage\\NativeSessionTokenStorage; use Symfony\\Component\\Translation\\Translator; use Symfony\\Component\\Validator\\Validation; use Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookup; use Twig\\RuntimeLoader\\FactoryRuntimeLoader; return [ //APP App::class =\u003e function (ContainerInterface $container) { $app = AppFactory::createFromContainer($container); (require_once __DIR__ . '/middleware.php')($app); (require_once __DIR__ . '/routes.php')($app); return $app; }, //Controladores HomeController::class =\u003e function (ContainerInterface $container) { return new HomeController($container); }, //Router 'router' =\u003e function (ContainerInterface $container) { return $container-\u003eget(App::class)-\u003egetRouteCollector()-\u003egetRouteParser(); }, //Formularios 'form.factory' =\u003e function (ContainerInterface $container) { $csrfGenerator = new UriSafeTokenGenerator(); $csrfStorage = new NativeSessionTokenStorage(); $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage); return Forms::createFormFactoryBuilder()-\u003eaddExtensions([ new HttpFoundationExtension(), new CsrfExtension($csrfManager), new ValidatorExtension($container-\u003eget('validator')) ])-\u003egetFormFactory(); }, 'validator' =\u003e function (ContainerInterface $container) { return Validation::createValidator(); }, //Twig 'view' =\u003e function (ContainerInterface $container) { $csrfGenerator = new UriSafeTokenGenerator(); $csrfStorage = new NativeSessionTokenStorage(); $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage); $defaultFormTheme = 'bootstrap_5_layout.html.twig'; $appVariableReflection = new \\ReflectionClass('\\Symfony\\Bridge\\Twig\\AppVariable'); $vendorTwigBridgeDir = dirname($appVariableReflection-\u003egetFileName()); $twig = Twig::create([ __DIR__ . '/../templates', $vendorTwigBridgeDir . '/Resources/views/Form' ], ['cache' =\u003e false]); $formEngine = new TwigRendererEngine([ $defaultFormTheme, ], $twig-\u003egetEnvironment()); $twig-\u003eaddRuntimeLoader(new FactoryRuntimeLoader([ FormRenderer::class =\u003e function () use ($formEngine, $csrfManager) { return new FormRenderer($formEngine, $csrfManager); } ])); $entryPoints = new EntrypointLookup(__DIR__ . '/../public/build/entrypoints.json'); $tagRenderer = new TagRenderer($entryPoints); $extension = new EntrypointsTwigExtension($entryPoints, $tagRenderer); $twig-\u003eaddExtension($extension); $twig-\u003eaddExtension(new FormExtension()); $twig-\u003eaddExtension(new TranslationExtension(new Translator('en'))); $twig-\u003eaddExtension(new RouterExtension($container)); return $twig; }, ]; Actualizar el archivo config/app.php linkPara usar PropelORM en tu proyecto, necesitas actualizar el archivo config/app.php con el siguiente contenido:\n\u003c?php use DI\\ContainerBuilder; use Slim\\App; require_once __DIR__ . '/../vendor/autoload.php'; require_once __DIR__ . '/config.php'; $containerBuilder = new ContainerBuilder(); // Add DI container definitions $containerBuilder-\u003eaddDefinitions(__DIR__ . '/container.php'); // Create DI container instance try { $container = $containerBuilder-\u003ebuild(); $app = $container-\u003eget(App::class); $app-\u003erun(); } catch (Exception $e) { } Crear los Modelos linkCrea la clase AbstractModel en la carpeta src/Models y pega el siguiente contenido:\n\u003c?php namespace Cms\\Models; use Propel\\Runtime\\ActiveQuery\\ModelCriteria; abstract class AbstractModel { protected $query; public function __construct($class) { $this-\u003equery = new ModelCriteria(null, $class); } public abstract function getAll(); public abstract function getById($id); public abstract function deleteById($id); public abstract function save($data); public abstract function update($data); } Como ejemplo veremos el modelo de la tabla category.\nCrea la clase CategoryModel en la carpeta src/Models y pega el siguiente contenido:\n\u003c?php namespace Cms\\Models; use Cms\\Map\\CategoryTableMap; use Laminas\\Diactoros\\Response; use Laminas\\Diactoros\\ServerRequest as Request; use Propel\\Runtime\\ActiveQuery\\Criteria; use Propel\\Runtime\\Exception\\PropelException; use Slim\\Routing\\RouteContext; class CategoryModel extends AbstractModel { public function __construct() { parent::__construct(CategoryTableMap::OM_CLASS); } /** * @return mixed|\\Propel\\Runtime\\Collection\\Collection $categories */ public function getAll(): mixed { return $this-\u003equery-\u003efind(); } public function tableLoader(Request $request, Response $response, array $args): Response { $search = $args['search'] ?? null; $limit = $args['limit'] ?? null; $offset = $args['offset'] ?? null; if (is_null($limit) || is_null($offset)) { return $response; } $router = RouteContext::fromRequest($request)-\u003egetRouteParser(); $next = $router-\u003efullUrlFor($request-\u003egetUri(), \"category_table\") . \"/$limit/\" . ($offset + $limit); $previous = $offset == 0 ? null : $router-\u003efullUrlFor($request-\u003egetUri(), \"category_table\") . \"/$limit/\" . ($offset - $limit); if (!is_null($search)) { $count = $this-\u003equery-\u003efilterByCategoryName(\"%\" . $search . \"%\", Criteria::LIKE)-\u003ecount(); $data = $this-\u003equery-\u003efilterByCategoryName( \"%\" . $search . \"%\", Criteria::LIKE)-\u003elimit($limit)-\u003eoffset($offset); } else { $count = $this-\u003equery-\u003efind()-\u003ecount(); $data = $this-\u003equery-\u003elimit($limit)-\u003eoffset($offset); } $output = [ 'count' =\u003e $count, 'next' =\u003e $next, 'previous' =\u003e $previous ]; foreach ($data as $category) { $output['results'][] = [ 'edit' =\u003e \"\" . \"Editar\", 'name' =\u003e $category-\u003egetCategoryName(), 'father' =\u003e !is_null($category-\u003egetParentCategory()) ? $category-\u003egetCategoryRelatedByParentCategory()-\u003egetCategoryName() : \"\", ]; } $response-\u003egetBody()-\u003ewrite(json_encode($output)); return $response-\u003ewithHeader(\"Content-Type\", \"application/json\"); } public function getById($id) { return $this-\u003equery-\u003efindPk($id); } public function deleteById($id): bool { $category = $this-\u003equery-\u003efindPk($id); try { $category-\u003edelete(); } catch (PropelException $e) { return false; } return true; } public function save($data): bool { try { $data-\u003esetNew(true); $data-\u003esave(); } catch (PropelException $e) { return false; } return true; } public function update($data): bool { try { $data-\u003esetNew(false); $data-\u003esave(); } catch (PropelException $e) { return false; } return true; } } Modificar el archivo Category linkCrea la clase Category en la carpeta src y pega el siguiente contenido:\n\u003c?php namespace Cms; use Cms\\Base\\Category as BaseCategory; /** * Skeleton subclass for representing a row from the 'category' table. * * * * You should add additional methods to this class to meet the * application requirements. This class will only be generated as * long as it does not already exist in the output directory. */ class Category extends BaseCategory { public function setParentCategory($v) { if ($v instanceof Category) { parent::setParentCategory($v-\u003egetCategoryId()); } else { parent::setParentCategory($v); } } public function getParentCategoryName(): string { return CategoryQuery::create()-\u003efindPk($this-\u003egetParentCategory())-\u003egetCategoryName(); } } Crear los Formularios linkCrea la clase CategoryForm en la carpeta src/Forms y pega el siguiente contenido:\n\u003c?php namespace Cms\\Forms; use Cms\\CategoryQuery; use Cms\\Models\\CategoryModel; use Symfony\\Component\\Form\\AbstractType; use Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType; use Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType; use Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType; use Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType; use Symfony\\Component\\Form\\FormBuilderInterface; use Symfony\\Component\\OptionsResolver\\OptionsResolver; class CategoryForm extends AbstractType { private CategoryModel $model; public function __construct() { $this-\u003emodel = new CategoryModel(); } public function buildForm(FormBuilderInterface $builder, array $options): void { $builder-\u003esetAction($options['attr']['action']); $builder-\u003eadd('categoryName', TextType::class, [ 'label' =\u003e 'Nombre de la Categoría', 'required' =\u003e true, ])-\u003eadd('parentCategory', ChoiceType::class, [ 'label' =\u003e 'Categoria Padre', 'required' =\u003e false, 'choices' =\u003e $this-\u003egetCategoryList(), 'choice_label' =\u003e function ($choice, $key, $value) { return $choice-\u003egetCategoryName(); }, 'choice_value' =\u003e function ($choice) { if (is_int($choice)) { $query = new CategoryQuery(); $choice = $query-\u003ecreate() -\u003efindOneByIdCategory($choice); } return $choice ? $choice-\u003egetCategoryId() : ''; }, ])-\u003eadd('save', SubmitType::class, [ 'label' =\u003e 'Save', ])-\u003eadd('cancel', ButtonType::class, [ 'label' =\u003e 'Cancel', 'attr' =\u003e [ 'onclick' =\u003e 'window.location.href = \"' . $options['attr']['url'] . '\"', ], ]); } public function configureOptions(OptionsResolver $resolver): void { $resolver-\u003esetDefaults([ 'data_class' =\u003e 'Cms\\Category', ]); } private function getCategoryList(): array { $categories = $this-\u003emodel-\u003egetAll(); $list = []; foreach ($categories as $category) { $list[$category-\u003egetCategoryId()] = $category; } return $list; } } Actualizar la clase AbstractController linkPara usar PropelORM en tu proyecto, necesitas actualizar la clase AbstractController con el siguiente contenido:\n\u003c?php namespace Cms\\Controller; use Laminas\\Diactoros\\Response; use Psr\\Container\\ContainerExceptionInterface; use Psr\\Container\\ContainerInterface; use Psr\\Container\\NotFoundExceptionInterface; use Symfony\\Component\\Form\\FormInterface; abstract class AbstractController { protected ContainerInterface $container; public function __construct(ContainerInterface $container) { $this-\u003econtainer = $container; } public function render(Response $response, $template, $data = []): Response { try { return $this-\u003econtainer-\u003eget('view')-\u003erender($response, $template, $data); } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) { return $response; } } public function redirect($response, $url): Response { return $response-\u003ewithHeader('Location', $url)-\u003ewithStatus(302); } public function createForm($entity, $class, $id, $method): ?FormInterface { try { $factory = $this-\u003econtainer-\u003eget('form.factory'); return $factory-\u003ecreateBuilder($class, $entity, [ 'attr' =\u003e [ 'id' =\u003e $id, 'url' =\u003e $this-\u003econtainer-\u003eget('router')-\u003eurlFor($id), 'action' =\u003e $this-\u003econtainer-\u003eget('router')-\u003eurlFor($id . \"_\" . $method) ] ])-\u003egetForm(); } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) { return null; } } } Crear los Controladores linkCrea la clase CategoryController en la carpeta src/Controller y pega el siguiente contenido:\n\u003c?php namespace Cms\\Controller; use Cms\\Category; use Cms\\Forms\\CategoryForm; use Cms\\Models\\CategoryModel; use Laminas\\Diactoros\\Response as Response; use Laminas\\Diactoros\\ServerRequest as Request; use Psr\\Container\\ContainerInterface; use Symfony\\Component\\HttpFoundation\\Request as SymfonyRequest; class CategoryController extends AbstractController { private CategoryModel $model; public function __construct(ContainerInterface $container) { parent::__construct($container); $this-\u003emodel = new CategoryModel(); } public function index(Request $request, Response $response, $args): Response { $categories = $this-\u003emodel-\u003egetAll(); return $this-\u003erender($response, 'category/index.html.twig', [ 'categories' =\u003e $categories, ]); } public function add(Request $request, Response $response, $args): Response { $req = SymfonyRequest::createFromGlobals(); $category = new Category(); $form = $this-\u003ecreateForm($category, CategoryForm::class, 'category', 'add'); $form-\u003ehandleRequest($req); if ($form-\u003eisSubmitted() \u0026\u0026 $form-\u003eisValid()) { $this-\u003emodel-\u003esave($category); return $this-\u003eredirect($response, $this-\u003econtainer-\u003eget('router')-\u003eurlFor('category')); } return $this-\u003erender($response, 'forms.html.twig', [ 'form' =\u003e $form-\u003ecreateView(), 'form_title' =\u003e 'Añadir Categoría' ]); } public function table(Request $request, Response $response, $args): Response { return $this-\u003emodel-\u003etableLoader($request, $response, $args); } } Actualizar el archivo config/routes.php linkPara usar PropelORM en tu proyecto, necesitas actualizar el archivo config/routes.php con el siguiente contenido:\n\u003c?php use Cms\\Controller\\CategoryController; use Cms\\Controller\\HomeController; use Slim\\App; return function (App $app) { $app-\u003eget('/[index]', [ HomeController::class, 'index' ]); $app-\u003eget('/hello/{name}', [ HomeController::class, 'hello' ]); $app-\u003egroup('/category', function ($group) { $group-\u003eget('', [ CategoryController::class, 'index' ])-\u003esetName('category'); $group-\u003emap(['GET', 'POST'], '/add', [ CategoryController::class, 'add' ])-\u003esetName('category_add'); $group-\u003eget('/edit/{id}', [ CategoryController::class, 'edit' ])-\u003esetName('category_edit'); $group-\u003eget('/delete/{id}', [ CategoryController::class, 'delete' ])-\u003esetName('category_delete'); $group-\u003eget(\"/tableData[/{limit}/{offset}]\", [ CategoryController::class, \"table\" ])-\u003esetName(\"category_table\"); $group-\u003eget(\"/tableData/{search}/{limit}/{offset}\", [ CategoryController::class, \"table\" ])-\u003esetName(\"category_search\"); }); }; Las Vistas linkCrea la vista category/index.html.twig en la carpeta templates y pega el siguiente contenido:\n{% extends 'base.html.twig' %} {% block javascripts %} {{ parent() }} {{ encore_entry_script_tags('category', { defer: true }) }} {% endblock %} {% block stylesheets %} {{ parent() }} {{ encore_entry_link_tags('category') }} {% endblock %} {% block content %} Lista de Categorías Agregar Categoría "
+            }
+        );
+    index.add(
+            {
+                id:  6 ,
+                href: "\/ims_doc\/docs\/crud\/views\/",
+                title: "Vistas",
+                description: "Creando la configuración de nuestras vistas linkCrea el archivo assets/category.js y pega el siguiente contenido: //JS\rimport \"gridjs-jquery\";\rimport \"./scripts/categoryTable.js\";\r//CSS\rimport \"gridjs/dist/theme/mermaid.css\";\rimport \"./styles/category.css\"; Crea el archivo assets/scripts/categoryTable.js y pega el siguiente contenido: import {table_search, table_pagination, table_label, configTable} from './tables';\rimport {html} from \"gridjs\";\r$(function () {\rconfigTable(['Nombre', 'Padre', 'Acciones'], data =\u003e data.results.map(entity =\u003e [\rentity.name, entity.father, html(entity.edit)\r]));\r}); Crea el archivo assets/scripts/tables.js y pega el siguiente contenido:",
+                content: "Creando la configuración de nuestras vistas linkCrea el archivo assets/category.js y pega el siguiente contenido:\n//JS\rimport \"gridjs-jquery\";\rimport \"./scripts/categoryTable.js\";\r//CSS\rimport \"gridjs/dist/theme/mermaid.css\";\rimport \"./styles/category.css\"; Crea el archivo assets/scripts/categoryTable.js y pega el siguiente contenido:\nimport {table_search, table_pagination, table_label, configTable} from './tables';\rimport {html} from \"gridjs\";\r$(function () {\rconfigTable(['Nombre', 'Padre', 'Acciones'], data =\u003e data.results.map(entity =\u003e [\rentity.name, entity.father, html(entity.edit)\r]));\r}); Crea el archivo assets/scripts/tables.js y pega el siguiente contenido:\nlet table = $(\"#wrapper\");\rlet loader = $(\"#table-loader\").attr('loader');\rlet form = $('#entityForm');\rlet entity = $('#idEntity');\rlet table_label = {\rsearch: {\rplaceholder: '🔍 Buscar...',\r},\rsort: {\rsortAsc: 'Orden de columna ascendente.',\rsortDesc: 'Orden de columna descendente.',\r},\rpagination: {\rprevious: '⬅️',\rnext: '➡️',\rnavigate: (page, pages) =\u003e `Página ${page} de ${pages}`,\rpage: (page) =\u003e `Página ${page}`,\rshowing: 'Mostrando del',\rof: 'de',\rto: 'al',\rresults: 'registros',\r},\rloading: 'Cargando...',\rnoRecordsFound: 'No se encontraron resultados.',\rerror: 'Ocurrió un error al cargar los datos.',\r};\rlet table_pagination = {\rlimit: 10,\rserver: {\rurl: (prev, page, limit) =\u003e `${prev}/${limit}/${page * limit}`\r}\r}\rlet table_search = {\rserver: {\rurl: (prev, keyword) =\u003e `${prev}/${keyword}`\r}\r};\rfunction configTable(columns, server_data) {\rtable.Grid({\rcolumns: columns,\rpagination: table_pagination,\rsearch: table_search,\rserver: {\rurl: loader,\rthen: server_data,\rtotal: data =\u003e data.count\r},\rlanguage: table_label\r});\rtable.on('click', '.edit', function () {\rentity.val($(this).attr('entity'));\rform.attr('action', $('#editLink').val());\rform.trigger(\"submit\")\r});\r}\rexport {configTable}; Actualizar el archivo de Webpack linkAbre el archivo webpack.config.js y agrega la siguiente configuración:\nconst Encore = require('@symfony/webpack-encore');\r// Manually configure the runtime environment if not already configured yet by the \"encore\" command.\r// It's useful when you use tools that rely on webpack.config.js file.\rif (!Encore.isRuntimeEnvironmentConfigured()) {\rEncore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');\r}\rEncore\r// directory where compiled assets will be stored\r.setOutputPath('public/build/')\r// public path used by the web server to access the output path\r.setPublicPath('http://localhost/cms_ims/build')\r.configureFilenames({\rjs: '[name].js',\rcss: '[name].css',\rassets: 'assets/[name].[ext]',\r})\r// only needed for CDN's or subdirectory deploy\r.setManifestKeyPrefix('build/')\r/*\r* ENTRY CONFIG\r*\r* Each entry will result in one JavaScript file (e.g. app.js)\r* and one CSS file (e.g. app.css) if your JavaScript imports CSS.\r*/\r.addEntry('app', './assets/app.js')\r.addEntry('category', './assets/category.js')\r// When enabled, Webpack \"splits\" your files into smaller pieces for greater optimization.\r.splitEntryChunks()\r// will require an extra script tag for runtime.js\r// but, you probably want this, unless you're building a single-page app\r.enableSingleRuntimeChunk()\r.addLoader({\rtest: /\\.js$/,\rloader: require.resolve('babel-loader'),\r})\r/*\r* FEATURE CONFIG\r*\r* Enable \u0026 configure other features below. For a full\r* list of features, see:\r* https://symfony.com/doc/current/frontend.html#adding-more-features\r*/\r.cleanupOutputBeforeBuild()\r.enableBuildNotifications()\r.enableSourceMaps(!Encore.isProduction())\r// enables hashed filenames (e.g. app.abc123.css)\r.enableVersioning(Encore.isProduction())\r.configureBabel((config) =\u003e {\rconfig.plugins.push('@babel/plugin-transform-class-properties');\r})\r// enables @babel/preset-env polyfills\r.configureBabelPresetEnv((config) =\u003e {\rconfig.useBuiltIns = 'usage';\rconfig.corejs = 3;\r})\r// enables Sass/SCSS support\r//.enableSassLoader()\r// uncomment if you use TypeScript\r//.enableTypeScriptLoader()\r// uncomment if you use React\r//.enableReactPreset()\r// uncomment to get integrity=\"...\" attributes on your script \u0026 link tags\r// requires WebpackEncoreBundle 1.4 or higher\r//.enableIntegrityHashes(Encore.isProduction())\r// uncomment if you're having problems with a jQuery plugin\r.autoProvidejQuery()\r;\rmodule.exports = Encore.getWebpackConfig(); Ejecuta el siguiente comando para compilar los archivos:\nyarn dev "
+            }
+        );
+    index.add(
+            {
+                id:  7 ,
+                href: "\/ims_doc\/docs\/",
+                title: "Docs",
+                description: "",
+                content: ""
+            }
+        );
+    search.addEventListener('input', show_results, true);
+
+    function show_results(){
+        const maxResult =  5 ;
+        const minlength =  0 ;
+        var searchQuery = sanitizeHTML(this.value);
+        var results = index.search(searchQuery, {limit: maxResult, enrich: true});
+
+        
+        const flatResults = new Map(); 
+        for (const result of results.flatMap(r => r.result)) {
+        if (flatResults.has(result.doc.href)) continue;
+        flatResults.set(result.doc.href, result.doc);
+        }
+
+        suggestions.innerHTML = "";
+        suggestions.classList.remove('d-none');
+
+        
+        if (searchQuery.length < minlength) {
+            const minCharMessage = document.createElement('div')
+            minCharMessage.innerHTML = `Please type at least <strong>${minlength}</strong> characters`
+            minCharMessage.classList.add("suggestion__no-results");
+            suggestions.appendChild(minCharMessage);
+            return;
+        } else {
+            
+            if (flatResults.size === 0 && searchQuery) {
+                const noResultsMessage = document.createElement('div')
+                noResultsMessage.innerHTML = "No results for" + ` "<strong>${searchQuery}</strong>"`
+                noResultsMessage.classList.add("suggestion__no-results");
+                suggestions.appendChild(noResultsMessage);
+                return;
+            }
+        }
+
+        
+        for(const [href, doc] of flatResults) {
+            const entry = document.createElement('div');
+            suggestions.appendChild(entry);
+
+            const a = document.createElement('a');
+            a.href = href;
+            entry.appendChild(a);
+
+            const title = document.createElement('span');
+            title.textContent = doc.title;
+            title.classList.add("suggestion__title");
+            a.appendChild(title);
+
+            const description = document.createElement('span');
+            description.textContent = doc.description;
+            description.classList.add("suggestion__description");
+            a.appendChild(description);
+
+            suggestions.appendChild(entry);
+
+            if(suggestions.childElementCount == maxResult) break;
+        }
+    }
+    }());
+</script>
+
+</body>
+</html>

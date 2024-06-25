@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crud on CMS :: Implantación de Sistemas de Gestión de Contenidos</title>
+    <link>http://localhost:1313/ims_doc/docs/crud/</link>
+    <description>Recent content in Crud on CMS :: Implantación de Sistemas de Gestión de Contenidos</description>
+    <generator>Hugo</generator>
+    <language>es-mx</language>
+    <lastBuildDate>Mon, 24 Jun 2024 21:05:47 -0600</lastBuildDate>
+    <atom:link href="http://localhost:1313/ims_doc/docs/crud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducción</title>
+      <link>http://localhost:1313/ims_doc/docs/crud/introduction/</link>
+      <pubDate>Mon, 24 Jun 2024 21:05:47 -0600</pubDate>
+      <guid>http://localhost:1313/ims_doc/docs/crud/introduction/</guid>
+      <description>Introducción linkEn esta sección, aprenderás a crear un CRUD (Create, Read, Update, Delete) en Slim. Un CRUD es una aplicación que realiza las operaciones básicas de un sistema de gestión de bases de datos. En este caso, usaremos una base de datos MySQL para almacenar los datos.&#xA;Para este tutorial, necesitarás tener instalado Composer y MySQL en tu sistema. Si no los tienes, puedes descargar Composer desde getcomposer.org y MySQL desde mysql.</description>
+    </item>
+    <item>
+      <title>ORM</title>
+      <link>http://localhost:1313/ims_doc/docs/crud/orm/</link>
+      <pubDate>Mon, 24 Jun 2024 21:05:47 -0600</pubDate>
+      <guid>http://localhost:1313/ims_doc/docs/crud/orm/</guid>
+      <description>ORM linkUn ORM (Object-Relational Mapping) es una técnica de programación que permite convertir datos entre sistemas incompatibles mediante el uso de objetos de programación orientada a objetos. En este tutorial, usaremos PropelORM, un ORM de alto rendimiento para PHP.&#xA;Instalar PropelORM linkPara instalar PropelORM, ejecuta el siguiente comando en la terminal:&#xA;composer require propel/propel Una vez que Composer haya terminado, se creará el directorio vendor en tu proyecto.&#xA;Configurar PropelORM linkPara configurar PropelORM, necesitas ejecutar el siguiente comando en la terminal:</description>
+    </item>
+    <item>
+      <title>Vistas</title>
+      <link>http://localhost:1313/ims_doc/docs/crud/views/</link>
+      <pubDate>Mon, 24 Jun 2024 21:05:47 -0600</pubDate>
+      <guid>http://localhost:1313/ims_doc/docs/crud/views/</guid>
+      <description>Creando la configuración de nuestras vistas linkCrea el archivo assets/category.js y pega el siguiente contenido:&#xA;//JS&#xD;import &amp;#34;gridjs-jquery&amp;#34;;&#xD;import &amp;#34;./scripts/categoryTable.js&amp;#34;;&#xD;//CSS&#xD;import &amp;#34;gridjs/dist/theme/mermaid.css&amp;#34;;&#xD;import &amp;#34;./styles/category.css&amp;#34;; Crea el archivo assets/scripts/categoryTable.js y pega el siguiente contenido:&#xA;import {table_search, table_pagination, table_label, configTable} from &amp;#39;./tables&amp;#39;;&#xD;import {html} from &amp;#34;gridjs&amp;#34;;&#xD;$(function () {&#xD;configTable([&amp;#39;Nombre&amp;#39;, &amp;#39;Padre&amp;#39;, &amp;#39;Acciones&amp;#39;], data =&amp;gt; data.results.map(entity =&amp;gt; [&#xD;entity.name, entity.father, html(entity.edit)&#xD;]));&#xD;}); Crea el archivo assets/scripts/tables.js y pega el siguiente contenido:</description>
+    </item>
+  </channel>
+</rss>
