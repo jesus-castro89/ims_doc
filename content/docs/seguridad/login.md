@@ -313,3 +313,18 @@ Agrega las siguientes funciones a la clase HomeController
     }
 
 {{< /prism >}}
+
+## Validando
+
+Si agregamos las siguientes comprobaciones antes de las funciones de los controladores:
+
+{{< prism lang="php" line-numbers="true" >}}
+
+    if ($this->validateSession())
+    return $this->redirect($response, $this->container->get('router')->urlFor('login'));
+    if (!$this->isAllowed('category', 'index'))
+    return $this->redirect($response, $this->container->get('router')->urlFor('edit'));
+
+{{< /prism >}}
+
+Estamos validando si en primer lugar el usuario esta logueado y en segundo si tiene permisos para acceder a la sección.
